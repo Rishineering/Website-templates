@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+html.dark {
+  --bg-primary: #070609;
+  --bg-secondary: #0d0b12;
+  --bg-card: rgba(17, 15, 22, 0.82);
+  --bg-card-solid: #110f16;
+  --bg-card-elevated: rgba(26, 22, 34, 0.9);
+  --bg-glass-nav: rgba(7, 6, 9, 0.82);
+  --text-primary: #faf7f2;
+  --text-secondary: #c9c1b4;
+  --text-muted: #8e8577;
+  --border-gold: rgba(212, 175, 55, 0.24);
+  --border-gold-bright: rgba(243, 223, 165, 0.68);
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f3dfa5;
+  --accent-crimson: #7f1d2b;
+  --card-spotlight: radial-gradient(
+    550px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    rgba(212, 175, 55, 0.14),
+    transparent 65%
+  );
+}
+
+html.light {
+  --bg-primary: #faf7f2;
+  --bg-secondary: #f3ede2;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-solid: #ffffff;
+  --bg-card-elevated: rgba(253, 249, 240, 0.96);
+  --bg-glass-nav: rgba(250, 247, 242, 0.88);
+  --text-primary: #1c1317;
+  --text-secondary: #4a3b3e;
+  --text-muted: #786669;
+  --border-gold: rgba(184, 144, 40, 0.32);
+  --border-gold-bright: rgba(154, 114, 28, 0.78);
+  --accent-gold: #9a721c;
+  --accent-gold-light: #b89028;
+  --accent-crimson: #5e121d;
+  --card-spotlight: radial-gradient(
+    550px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    rgba(212, 175, 55, 0.18),
+    transparent 65%
+  );
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+    transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    overflow-x: hidden;
+    transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::selection {
+    background-color: rgba(212, 175, 55, 0.3);
+    color: var(--text-primary);
+  }
+}
+
+@layer components {
+  /* Metallic Gold Text Gradient */
+  .text-gold-gradient {
+    background: linear-gradient(
+      135deg,
+      #f8ebd0 0%,
+      #e6c665 30%,
+      #d4af37 55%,
+      #aa7c11 80%,
+      #f6e6b4 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  html.light .text-gold-gradient {
+    background: linear-gradient(
+      135deg,
+      #6b4c10 0%,
+      #9a721c 35%,
+      #b88917 65%,
+      #5e121d 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Luxury Glassmorphic Card with Interactive Hover Physics */
+  .luxury-card {
+    position: relative;
+    background: var(--bg-card);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border-gold);
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .luxury-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(212, 175, 55, 0.18) 0%,
+      rgba(212, 175, 55, 0.04) 45%,
+      transparent 75%
+    );
+    opacity: 0;
+    transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .luxury-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-gold-bright);
+    box-shadow: 0 22px 48px -12px rgba(212, 175, 55, 0.25),
+      0 0 24px -4px rgba(212, 175, 55, 0.18);
+  }
+
+  .luxury-card:hover::before {
+    opacity: 1;
+  }
+
+  .luxury-card-image {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .luxury-card:hover .luxury-card-image {
+    transform: scale(1.04);
+  }
+
+  /* Liquid Gold Button */
+  .btn-gold-primary {
+    background: linear-gradient(
+      135deg,
+      #f6e6b4 0%,
+      #d4af37 42%,
+      #9a721c 85%,
+      #e9c76e 100%
+    );
+    color: #09070c;
+    font-weight: 600;
+    border: 1px solid rgba(255, 245, 214, 0.55);
+    box-shadow: 0 8px 28px -6px rgba(212, 175, 55, 0.48),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-gold-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px -6px rgba(212, 175, 55, 0.68),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    filter: brightness(1.05);
+  }
+
+  /* Luxury Outline Gold Button */
+  .btn-gold-outline {
+    background: rgba(212, 175, 55, 0.08);
+    color: var(--text-primary);
+    border: 1px solid var(--border-gold-bright);
+    backdrop-filter: blur(10px);
+    transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-gold-outline:hover {
+    background: rgba(212, 175, 55, 0.18);
+    border-color: #f3dfa5;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -8px rgba(212, 175, 55, 0.35);
+  }
+
+  /* Sacred Pill Badge */
+  .sacred-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: rgba(212, 175, 55, 0.11);
+    border: 1px solid var(--border-gold);
+    color: var(--accent-gold);
+  }
+
+  html.dark .sacred-badge {
+    color: #f3dfa5;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.65);
+}
