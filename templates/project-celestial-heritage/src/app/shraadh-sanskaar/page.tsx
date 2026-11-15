@@ -59,7 +59,7 @@ export default function ShraadhSanskaarPage() {
 
           <Link
             href="/pooja-services"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-400/40 bg-gold-500/10 hover:bg-gold-500/25 text-gold-300 text-xs font-semibold transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full btn-gold-outline text-xs font-semibold transition-all hover:scale-105"
           >
             <span>Looking for Deity Poojas? Switch Page →</span>
           </Link>
@@ -74,19 +74,19 @@ export default function ShraadhSanskaarPage() {
 
         {/* Sanskrit Shloka Banner */}
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <p className="font-devanagari text-lg sm:text-xl text-amber-200 font-semibold tracking-wide py-3 px-6 rounded-2xl bg-slate-800/40 border border-slate-500/30 shadow-sm inline-block">
+          <p className="font-devanagari text-lg sm:text-xl text-gold-400 font-semibold tracking-wide py-3 px-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-gold)] shadow-sm inline-block">
             {siteData.shraadhSanskaarSection.shloka}
           </p>
         </div>
 
         {/* Urgent Guidance Callout Banner */}
-        <div className="max-w-4xl mx-auto mb-12 p-5 sm:p-6 rounded-2xl border-2 border-amber-300/40 bg-gradient-to-r from-[#20181A] via-[var(--bg-card)] to-[#181822] shadow-gold-glow flex flex-col md:flex-row items-center justify-between gap-5">
-          <div className="flex items-start gap-4">
-            <div className="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center shrink-0 mt-0.5">
-              <ShieldAlert className="w-6 h-6 text-amber-300" />
+        <div className="luxury-card max-w-4xl mx-auto mb-12 p-5 sm:p-6 rounded-2xl border-2 border-[var(--border-gold-bright)] dark:bg-gradient-to-r dark:from-[#20181A] dark:via-[var(--bg-card)] dark:to-[#181822] shadow-gold-glow flex flex-col md:flex-row items-center justify-between gap-5">
+          <div className="relative z-10 flex items-start gap-4">
+            <div className="w-11 h-11 rounded-xl bg-gold-500/20 border border-gold-400/50 flex items-center justify-center shrink-0 mt-0.5">
+              <ShieldAlert className="w-6 h-6 text-gold-400" />
             </div>
             <div>
-              <h4 className="font-serif text-lg font-bold text-amber-200">
+              <h4 className="font-serif text-lg font-bold text-gold-gradient">
                 Immediate Bereavement Assistance & Shraadh Tithi Guidance
               </h4>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1 leading-relaxed">
@@ -95,7 +95,7 @@ export default function ShraadhSanskaarPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+          <div className="relative z-10 flex items-center gap-3 shrink-0 w-full md:w-auto">
             <a
               href={buildWhatsAppUrl(
                 "Namaste Pandit Ji. We need urgent guidance for Antim Sanskaar / Shraadh ritual."

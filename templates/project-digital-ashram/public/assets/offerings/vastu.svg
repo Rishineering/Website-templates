@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" fill="none">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#431407"/>
+      <stop offset="50%" stop-color="#7C2D12"/>
+      <stop offset="100%" stop-color="#2A0A04"/>
+    </linearGradient>
+    <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg2)"/>
+  <rect x="18" y="18" width="764" height="384" rx="18" stroke="url(#gold2)" stroke-width="1.2" stroke-opacity="0.45"/>
+
+  <!-- Sacred Vastu Purusha 9-Pada Grid & Lotus -->
+  <g transform="translate(400, 172)">
+    <circle r="115" stroke="url(#gold2)" stroke-width="1" stroke-dasharray="5 5" stroke-opacity="0.5"/>
+    <rect x="-75" y="-75" width="150" height="150" rx="8" fill="#2A0B04" fill-opacity="0.7" stroke="url(#gold2)" stroke-width="2"/>
+    <line x1="-25" y1="-75" x2="-25" y2="75" stroke="url(#gold2)" stroke-width="1.2" stroke-opacity="0.65"/>
+    <line x1="25" y1="-75" x2="25" y2="75" stroke="url(#gold2)" stroke-width="1.2" stroke-opacity="0.65"/>
+    <line x1="-75" y1="-25" x2="75" y2="-25" stroke="url(#gold2)" stroke-width="1.2" stroke-opacity="0.65"/>
+    <line x1="-75" y1="25" x2="75" y2="25" stroke="url(#gold2)" stroke-width="1.2" stroke-opacity="0.65"/>
+    <!-- Brahmasthan Center Lotus -->
+    <circle cx="0" cy="0" r="18" fill="url(#gold2)" fill-opacity="0.25" stroke="url(#gold2)" stroke-width="1.8"/>
+    <circle cx="0" cy="0" r="6" fill="#FDE68A"/>
+  </g>
+
+  <g transform="translate(400, 348)">
+    <rect x="-155" y="-24" width="310" height="46" rx="23" fill="#1A0602" fill-opacity="0.9" stroke="url(#gold2)" stroke-width="1.4"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#FFF7ED" text-anchor="middle" letter-spacing="1.8">
+      YOUR OFFERING PHOTO HERE
+    </text>
+    <text x="0" y="14" font-family="Georgia, serif" font-size="10.5" fill="#FDBA74" text-anchor="middle">
+      वास्तु शास्त्र एवं गृह संतुलन
+    </text>
+  </g>
+</svg>

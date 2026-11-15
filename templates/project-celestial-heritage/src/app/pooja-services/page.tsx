@@ -50,7 +50,7 @@ export default function DeityPoojaServicesPage() {
 
           <Link
             href="/shraadh-sanskaar"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-400/40 bg-slate-800/30 hover:bg-slate-800/60 text-slate-200 text-xs font-semibold transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full btn-gold-outline text-xs font-semibold transition-all hover:scale-105"
           >
             <span>Looking for Shraadh / Pitru Karya? Switch Page →</span>
           </Link>
@@ -65,7 +65,7 @@ export default function DeityPoojaServicesPage() {
 
         {/* Sanskrit Shloka Banner */}
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <p className="font-devanagari text-lg sm:text-xl text-gold-300 font-semibold tracking-wide py-3 px-6 rounded-2xl bg-gold-500/10 border border-gold-400/30 shadow-sm inline-block">
+          <p className="font-devanagari text-lg sm:text-xl text-gold-400 font-semibold tracking-wide py-3 px-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-gold)] shadow-sm inline-block">
             {siteData.deityPoojaSection.shloka}
           </p>
         </div>

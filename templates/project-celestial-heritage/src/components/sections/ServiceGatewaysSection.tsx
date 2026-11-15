@@ -52,10 +52,10 @@ export function ServiceGatewaysSection() {
                   delay: index * 0.15,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className={`relative rounded-3xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden border-2 transition-all duration-500 group ${
+                className={`luxury-card relative rounded-3xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden border-2 transition-all duration-500 group ${
                   isDeity
-                    ? "border-gold-400/50 bg-gradient-to-br from-[#1E1410] via-[var(--bg-card)] to-[#2B1015] hover:border-gold-300 hover:shadow-[0_24px_55px_-10px_rgba(212,175,55,0.35)]"
-                    : "border-slate-400/35 bg-gradient-to-br from-[#141419] via-[var(--bg-card)] to-[#1E1E28] hover:border-amber-200/60 hover:shadow-[0_24px_55px_-10px_rgba(226,232,240,0.2)]"
+                    ? "border-gold-400/55 dark:bg-gradient-to-br dark:from-[#1E1410] dark:via-[var(--bg-card)] dark:to-[#2B1015] hover:border-gold-400"
+                    : "border-amber-500/40 dark:border-slate-400/35 dark:bg-gradient-to-br dark:from-[#141419] dark:via-[var(--bg-card)] dark:to-[#1E1E28] hover:border-amber-500"
                 }`}
               >
                 {/* Decorative Watermark Emblem */}
@@ -63,20 +63,14 @@ export function ServiceGatewaysSection() {
                   {isDeity ? (
                     <Flower2 className="w-72 h-72 text-gold-400" />
                   ) : (
-                    <Droplets className="w-72 h-72 text-slate-300" />
+                    <Droplets className="w-72 h-72 text-amber-600 dark:text-slate-300" />
                   )}
                 </div>
 
                 <div className="relative z-10">
                   {/* Top Sanskrit Shubh Pill & Icon */}
                   <div className="flex items-center justify-between mb-6">
-                    <span
-                      className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border ${
-                        isDeity
-                          ? "bg-gold-500/15 border-gold-400/40 text-gold-300"
-                          : "bg-slate-700/20 border-slate-400/30 text-slate-200"
-                      }`}
-                    >
+                    <span className="sacred-badge">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>{card.sanskritTag}</span>
                     </span>
@@ -84,14 +78,14 @@ export function ServiceGatewaysSection() {
                     <div
                       className={`w-14 h-14 rounded-2xl flex items-center justify-center border shadow-md group-hover:scale-105 transition-transform ${
                         isDeity
-                          ? "border-gold-400/60 bg-gold-500/20 text-gold-300 shadow-gold-glow"
-                          : "border-slate-400/40 bg-slate-700/20 text-slate-100"
+                          ? "border-gold-400/60 bg-gold-500/20 text-gold-400 shadow-gold-glow"
+                          : "border-amber-500/45 bg-amber-500/15 text-amber-700 dark:text-amber-200"
                       }`}
                     >
                       {isDeity ? (
-                        <Flame className="w-7 h-7 text-gold-400" />
+                        <Flame className="w-7 h-7" />
                       ) : (
-                        <Droplets className="w-7 h-7 text-slate-200" />
+                        <Droplets className="w-7 h-7" />
                       )}
                     </div>
                   </div>
@@ -118,11 +112,7 @@ export function ServiceGatewaysSection() {
                         key={highlight}
                         className="flex items-center gap-3 text-sm sm:text-base text-[var(--text-primary)] font-medium"
                       >
-                        <CheckCircle2
-                          className={`w-4 h-4 shrink-0 ${
-                            isDeity ? "text-gold-400" : "text-amber-200"
-                          }`}
-                        />
+                        <CheckCircle2 className="w-4 h-4 shrink-0 text-gold-400" />
                         <span>{highlight}</span>
                       </div>
                     ))}
@@ -136,7 +126,7 @@ export function ServiceGatewaysSection() {
                     className={`w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-base font-bold shadow-lg transition-all ${
                       isDeity
                         ? "btn-gold-primary"
-                        : "bg-gradient-to-r from-amber-100 via-amber-200 to-amber-100 text-obsidian hover:brightness-105"
+                        : "btn-gold-outline hover:btn-gold-primary"
                     }`}
                   >
                     <span>{card.ctaText}</span>

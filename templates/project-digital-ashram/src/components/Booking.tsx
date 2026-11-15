@@ -50,8 +50,14 @@ export default function Booking() {
   const headingRef = useRef<HTMLParagraphElement>(null);
   const copyTimer = useRef<number | null>(null);
 
-  /* A service card can hand its choice to the form. */
+  /* A service card or dedicated offering reading page can hand its choice to the form. */
   useEffect(() => {
+    const stored = window.sessionStorage.getItem("pandit:preselect-service");
+    if (stored && services.some((service) => service.id === stored)) {
+      setServiceId(stored);
+      window.sessionStorage.removeItem("pandit:preselect-service");
+    }
+
     const onSelect = (event: Event) => {
       const id = (event as CustomEvent<string>).detail;
       if (services.some((service) => service.id === id)) {
@@ -175,8 +181,7 @@ export default function Booking() {
               <p className="eyebrow">04 — {booking.eyebrow}</p>
             </div>
             <h2 className="mt-7 font-serif text-[clamp(2.1rem,4.4vw,3.5rem)] leading-[1.06] tracking-[-0.018em] text-ink [text-wrap:balance]">
-              {booking.heading.split("conversation.")[0]}
-              <em className="italic text-terracotta">conversation.</em>
+              Contact <em className="italic text-terracotta">now.</em>
             </h2>
             <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.8] text-ink/70">
               {booking.intro}

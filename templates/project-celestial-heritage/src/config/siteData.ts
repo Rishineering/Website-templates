@@ -84,6 +84,8 @@ export interface ConsultationOptionItem {
   bullets: string[];
 }
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const siteData = {
   // --------------------------------------------------------------------------
   // 1. BRAND & GLOBAL IDENTITY
@@ -129,8 +131,8 @@ export const siteData = {
     subheadline: "श्री वैदिक पूजा एवं संस्कार केंद्र",
     tagline:
       "Performing auspicious Deity Poojas and solemn Ancestral Shraadh rites with strict adherence to Vedic Vidhi and purity.",
-    videoSrc: "/assets/hero-ritual.mp4",
-    fallbackBgSvg: "/assets/hero-bg-fallback.svg",
+    videoSrc: `${BASE_PATH}/assets/hero-ritual.mp4`,
+    fallbackBgSvg: `${BASE_PATH}/assets/hero-bg-fallback.svg`,
     trustPills: [
       "Rigveda & Yajurveda Vidhi",
       "Dev & Pitru Karya Specialist",
@@ -154,7 +156,7 @@ export const siteData = {
     badge: "VEDIC TRADITION & LINEAGE",
     heading: "About Pandit Ji",
     subtitle: "Preserving pure Vedic Karamkand, Mantra Ucharan & Shastra Vidhi",
-    image: "/assets/astrologer-placeholder.svg",
+    image: `${BASE_PATH}/assets/astrologer-placeholder.svg`,
     bioTitle: "Revered Vedic Karamkand Practitioner",
     paragraphs: [
       "With rigorous traditional training in Rigveda and Yajurveda Karamkand, Pandit Ji conducts every ritual in strict alignment with sacred Shastras, authentic Vedic phonetics (Veda Swara), and complete purity.",
@@ -246,7 +248,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["At Home", "Temple", "Online Sankalp"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -261,7 +263,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["At Home", "Office / Business", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -276,7 +278,7 @@ export const siteData = {
       duration: "3-4 hours",
       samagriIncluded: true,
       modes: ["At Home", "Shiva Temple", "Online Sankalp"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -291,7 +293,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["At Home", "Community Hall", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -306,7 +308,7 @@ export const siteData = {
       duration: "4-6 hours",
       samagriIncluded: true,
       modes: ["At Home", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -321,7 +323,7 @@ export const siteData = {
       duration: "Full Day / Multi-day",
       samagriIncluded: true,
       modes: ["At Home", "Temple", "Sacred Tirth"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -336,7 +338,7 @@ export const siteData = {
       duration: "2 hours",
       samagriIncluded: true,
       modes: ["At Home", "School / Institute", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -351,7 +353,7 @@ export const siteData = {
       duration: "3 hours",
       samagriIncluded: true,
       modes: ["At Home", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -366,7 +368,7 @@ export const siteData = {
       duration: "3-4 hours",
       samagriIncluded: true,
       modes: ["At Home", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
     {
@@ -381,7 +383,7 @@ export const siteData = {
       duration: "3-4 hours",
       samagriIncluded: true,
       modes: ["At New Home / Flat", "New Commercial Space"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "With Complete Samagri",
     },
   ] as DeityPoojaItem[],
@@ -413,7 +415,7 @@ export const siteData = {
       duration: "As per requirement",
       samagriIncluded: true,
       modes: ["Crematorium / Mukti Dham", "Ghat", "Hospital / Residence"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -428,7 +430,7 @@ export const siteData = {
       duration: "3-5 hours",
       samagriIncluded: true,
       modes: ["Residence", "Community Hall", "River Ghat"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -443,7 +445,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["Sacred River / Ghat", "Residence", "Online Sankalp"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -458,7 +460,7 @@ export const siteData = {
       duration: "2 hours daily",
       samagriIncluded: true,
       modes: ["At Residence", "Online Daily Stream"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Pustak & Path Included",
     },
     {
@@ -473,7 +475,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["Residence", "Temple / Ghat"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -488,7 +490,7 @@ export const siteData = {
       duration: "3-4 hours",
       samagriIncluded: true,
       modes: ["Sacred Tirth (Gaya / Haridwar / Trimbak)", "Local River Ghat"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -503,7 +505,7 @@ export const siteData = {
       duration: "Full Day",
       samagriIncluded: true,
       modes: ["Designated Tirth / Ghat", "Special Vedic Setup"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -518,7 +520,7 @@ export const siteData = {
       duration: "1-2 hours",
       samagriIncluded: true,
       modes: ["Crematorium", "Sacred River Ghat (Haridwar / Prayag / Local)"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -533,7 +535,7 @@ export const siteData = {
       duration: "2 hours",
       samagriIncluded: true,
       modes: ["Residence", "River Ghat"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
     {
@@ -548,7 +550,7 @@ export const siteData = {
       duration: "2-3 hours",
       samagriIncluded: true,
       modes: ["At Residence", "Temple"],
-      image: "/assets/pooja-placeholder.svg",
+      image: `${BASE_PATH}/assets/pooja-placeholder.svg`,
       badge: "Vidhi & Samagri Included",
     },
   ] as ShraadhSanskaarItem[],
@@ -564,8 +566,8 @@ export const siteData = {
     heading: "Witness Pure Vedic Ceremonies",
     subtitle:
       "Experience the sanctity, authentic Vedic swaras, and strict ritual purity of our Havans and Anushthans",
-    videoSrc: "/assets/sacred-ceremony.mp4",
-    posterSvg: "/assets/pooja-placeholder.svg",
+    videoSrc: `${BASE_PATH}/assets/sacred-ceremony.mp4`,
+    posterSvg: `${BASE_PATH}/assets/pooja-placeholder.svg`,
   },
 
   // --------------------------------------------------------------------------
@@ -587,8 +589,8 @@ export const siteData = {
       title: "Maha Rudrabhishek Vidhi",
       category: "Dev Pooja",
       description: "Sacred Panchamrit Snan and Rudri Path chanting for Lord Shiva",
-      videoUrl: "/assets/videos/bhagwat-moolpath.mp4",
-      posterUrl: "/assets/pooja-placeholder.svg",
+      videoUrl: `${BASE_PATH}/assets/videos/bhagwat-moolpath.mp4`,
+      posterUrl: `${BASE_PATH}/assets/pooja-placeholder.svg`,
     },
     {
       id: "video-2",
@@ -596,8 +598,8 @@ export const siteData = {
       title: "Garud Puran Katha Discourse",
       category: "Pitru Karya",
       description: "Spiritual discourse on soul transition and liberation during mourning rites",
-      videoUrl: "/assets/videos/tripura-sundari.mp4",
-      posterUrl: "/assets/pooja-placeholder.svg",
+      videoUrl: `${BASE_PATH}/assets/videos/tripura-sundari.mp4`,
+      posterUrl: `${BASE_PATH}/assets/pooja-placeholder.svg`,
     },
     {
       id: "video-3",
@@ -605,8 +607,8 @@ export const siteData = {
       title: "Mahamrityunjaya Consecrated Havan",
       category: "Havan & Mantra",
       description: "Sacred fire sacrificial Ahutis for longevity and divine protection",
-      videoUrl: "/assets/videos/moolpath-pujanam.mp4",
-      posterUrl: "/assets/pooja-placeholder.svg",
+      videoUrl: `${BASE_PATH}/assets/videos/moolpath-pujanam.mp4`,
+      posterUrl: `${BASE_PATH}/assets/pooja-placeholder.svg`,
     },
     {
       id: "video-4",
@@ -614,8 +616,8 @@ export const siteData = {
       title: "Pitru Tarpan & Pind Daan Vidhi",
       category: "Pitru Karya",
       description: "Sacred offerings of barley flour Pindas and sesame water at the ghat",
-      videoUrl: "/assets/videos/navgrah-shanti.mp4",
-      posterUrl: "/assets/pooja-placeholder.svg",
+      videoUrl: `${BASE_PATH}/assets/videos/navgrah-shanti.mp4`,
+      posterUrl: `${BASE_PATH}/assets/pooja-placeholder.svg`,
     },
     {
       id: "video-5",
@@ -623,8 +625,8 @@ export const siteData = {
       title: "Navgrah Shanti Havan Anushthan",
       category: "Dev Pooja",
       description: "Pacification ritual for all nine planetary deities with authentic samidhas",
-      videoUrl: "/assets/videos/kaal-sarp-dosh.mp4",
-      posterUrl: "/assets/pooja-placeholder.svg",
+      videoUrl: `${BASE_PATH}/assets/videos/kaal-sarp-dosh.mp4`,
+      posterUrl: `${BASE_PATH}/assets/pooja-placeholder.svg`,
     },
   ] as VideoGalleryItem[],
 

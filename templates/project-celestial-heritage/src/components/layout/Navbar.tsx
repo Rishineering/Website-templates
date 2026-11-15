@@ -103,26 +103,26 @@ export function Navbar() {
               onClick={toggleTheme}
               aria-label={
                 theme === "dark"
-                  ? "Switch to Sacred Ivory Light Mode"
-                  : "Switch to Royal Obsidian Dark Mode"
+                  ? "Switch to Sacred Saffron Mode"
+                  : "Switch to Royal Obsidian Mode"
               }
               title={
                 theme === "dark"
-                  ? "Sacred Ivory Mode (Light)"
+                  ? "Sacred Saffron Mode (Kesariya)"
                   : "Royal Obsidian Mode (Dark)"
               }
               className="flex items-center gap-2 px-3 py-2 rounded-full border border-[var(--border-gold)] bg-[var(--bg-card)] hover:border-gold-400 text-xs font-medium text-[var(--text-primary)] transition-all"
             >
               {theme === "dark" ? (
                 <>
-                  <Sun className="w-4 h-4 text-gold-400" />
+                  <Sun className="w-4 h-4 text-orange-400" />
                   <span className="hidden xl:inline text-[var(--text-secondary)]">
-                    Sacred Ivory
+                    Sacred Saffron
                   </span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-4 h-4 text-maroon" />
+                  <Moon className="w-4 h-4 text-[#7C2D12]" />
                   <span className="hidden xl:inline text-[var(--text-secondary)]">
                     Royal Obsidian
                   </span>
