@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Templates Hub | Live Demos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #070609;
+      color: #FAF7F2;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.25rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .radial-glow {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 650px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      z-index: 10;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: #F3DFA5;
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #F8EBD0 0%, #E6C665 35%, #D4AF37 60%, #F6E6B4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    p.subtitle {
+      font-size: 1.05rem;
+      color: #C9C1B4;
+      max-width: 620px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      text-align: left;
+    }
+    .card {
+      background: rgba(17, 15, 22, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(14px);
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(243, 223, 165, 0.7);
+      box-shadow: 0 18px 42px -10px rgba(212, 175, 55, 0.25);
+    }
+    .card-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #D4AF37;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #FAF7F2;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 0.88rem;
+      color: #A39A8B;
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #F3DFA5;
+    }
+    .card:hover .card-cta {
+      color: #FFFFFF;
+    }
+    footer {
+      margin-top: 3.5rem;
+      font-size: 0.8rem;
+      color: #6C6253;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="radial-glow"></div>
+  <div class="container">
+    <div class="badge">✨ Verified Live Showcase Hub</div>
+    <h1>Sacred Website Templates</h1>
+    <p class="subtitle">Select a website below to experience the live production deployment hosted directly on GitHub Pages.</p>
+
+    <div class="grid">
+      <a class="card" href="./vedic-luxury-web/">
+        <div>
+          <div class="card-tag">Template 01 • Luxury Web App</div>
+          <div class="card-title">श्री श्री विद्या Astrology</div>
+          <div class="card-desc">Royal Celestial Heritage Vedic astrology platform with 3-step booking wizard, Sacred Ceremony showcase, interactive light/dark themes, and automated WhatsApp payload generation.</div>
+        </div>
+        <div class="card-cta">
+          <span>Launch Live Website</span> →
+        </div>
+      </a>
+
+      <a class="card" href="./pandit-portfolio/">
+        <div>
+          <div class="card-tag">Template 02 • Portfolio & Rituals</div>
+          <div class="card-title">Pandit Portfolio Website</div>
+          <div class="card-desc">Sacred Vedic ritual ceremonies, philosophy, offerings catalogue, and dedicated booking portal crafted with warm authentic ritual aesthetics.</div>
+        </div>
+        <div class="card-cta">
+          <span>Launch Live Website</span> →
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      Repository: <a href="https://github.com/Rishineering/Website-templates" style="color: #D4AF37; text-decoration: none;">github.com/Rishineering/Website-templates</a>
+    </footer>
+  </div>
+</body>
+</html>
