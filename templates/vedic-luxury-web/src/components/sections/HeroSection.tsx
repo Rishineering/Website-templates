@@ -7,18 +7,14 @@ import {
   Sparkles,
   Calendar,
   MessageCircle,
-  Compass,
-  CheckCircle2,
   ArrowRight,
+  Flame,
+  CheckCircle2,
 } from "lucide-react";
 import { siteData, buildWhatsAppUrl } from "@/config/siteData";
 
 export function HeroSection() {
   if (!siteData.hero.enabled) return null;
-
-  const consultHref = siteData.servicesSection.enabled
-    ? "#services"
-    : "/book-consultation";
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 md:py-28">
@@ -36,7 +32,7 @@ export function HeroSection() {
           loop
           playsInline
           poster={siteData.hero.fallbackBgSvg}
-          className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-lighten pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-lighten pointer-events-none"
         >
           <source src={siteData.hero.videoSrc} type="video/mp4" />
         </video>
@@ -48,18 +44,18 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Vignette Gradient Overlay for readability in both themes */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/55 to-[var(--bg-primary)]" />
+        {/* Vignette Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/60 to-[var(--bg-primary)]" />
       </div>
 
       {/* Main Hero Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Certified Vedic Astrologer Badge */}
+        {/* Vedic Karamkand Specialist Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-gold-400/50 bg-gold-500/10 backdrop-blur-md mb-7 shadow-gold-glow"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-gold-400/50 bg-gold-500/10 backdrop-blur-md mb-6 shadow-gold-glow"
         >
           <Sparkles className="w-4 h-4 text-gold-400" />
           <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-gold-300 dark:text-gold-200">
@@ -67,7 +63,7 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Subheadline (Devanagari + English Brand Title) */}
+        {/* Subheadline (Devanagari Brand Name) */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
@@ -87,7 +83,7 @@ export function HeroSection() {
           {siteData.hero.headline}
         </motion.h1>
 
-        {/* Ornate Divider */}
+        {/* Ornate Sacred Flame Divider */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -95,7 +91,7 @@ export function HeroSection() {
           className="flex items-center justify-center gap-3 mb-6"
         >
           <span className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent to-gold-400" />
-          <Compass className="w-5 h-5 text-gold-400 animate-pulse" />
+          <Flame className="w-5 h-5 text-gold-400 animate-pulse" />
           <span className="h-[1px] w-16 sm:w-28 bg-gradient-to-l from-transparent to-gold-400" />
         </motion.div>
 
@@ -104,12 +100,12 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="max-w-2xl mx-auto text-base sm:text-xl md:text-2xl text-[var(--text-secondary)] font-normal leading-relaxed mb-9"
+          className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-[var(--text-secondary)] font-normal leading-relaxed mb-9"
         >
           {siteData.hero.tagline}
         </motion.p>
 
-        {/* 3 Trust Pills */}
+        {/* 4 Trust Pills */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -135,7 +131,7 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href={consultHref}
+            href="#services"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full btn-gold-primary text-sm sm:text-base tracking-wide"
           >
             <span>{siteData.hero.ctas.primary}</span>

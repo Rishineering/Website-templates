@@ -9,48 +9,53 @@ import {
   Lock,
   MessageCircle,
   Phone,
-  Video,
-  Users,
-  ShieldCheck,
+  Flame,
+  Droplets,
   Award,
   ArrowRight,
   ArrowLeft,
 } from "lucide-react";
 import {
   siteData,
-  getAllEnabledBookableServices,
+  getEnabledDeityPoojas,
+  getEnabledShraadhSanskaars,
   buildWhatsAppUrl,
 } from "@/config/siteData";
 
 function BookingWizardContent() {
   const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
   const serviceParam = searchParams.get("service");
 
-  const availableServices = getAllEnabledBookableServices();
-  const astrologyOptions = availableServices.filter(
-    (s) => s.category === "Astrology Service"
-  );
-  const poojaOptions = availableServices.filter(
-    (s) => s.category === "Pooja Service"
-  );
+  const deityPoojas = getEnabledDeityPoojas();
+  const shraadhSanskaars = getEnabledShraadhSanskaars();
 
   // Wizard Step (1, 2, or 3)
   const [step, setStep] = useState<1 | 2 | 3>(1);
 
-  // Form State
+  // Form State - Step 1
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [consultationType, setConsultationType] = useState<string>("Online");
-  const [selectedService, setSelectedService] = useState<string>(
-    availableServices[0]?.label || "Kundli Analysis"
+  const [cityLocality, setCityLocality] = useState("");
+
+  // Form State - Step 2
+  const [ritualCategory, setRitualCategory] = useState<"pooja" | "shraadh">(
+    categoryParam === "shraadh" ? "shraadh" : "pooja"
   );
-  const [consultationMode, setConsultationMode] = useState<string>(
-    siteData.booking.consultationModes[0] || "Video Call"
+  const [selectedRitual, setSelectedRitual] = useState<string>("");
+  const [samagriChoice, setSamagriChoice] = useState<string>(
+    siteData.booking.samagriOptions[0]
   );
+  const [venueChoice, setVenueChoice] = useState<string>(
+    siteData.booking.venues[0]
+  );
+  const [preferredDate, setPreferredDate] = useState<string>("");
   const [timeSlot, setTimeSlot] = useState<string>(
-    siteData.booking.timeSlots[0] || "9:00 AM - 11:00 AM"
+    siteData.booking.timeSlots[0]
   );
-  const [message, setMessage] = useState("");
+
+  // Form State - Step 3
+  const [additionalNotes, setAdditionalNotes] = useState("");
 
   // Validation & Modal State
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -58,18 +63,36 @@ function BookingWizardContent() {
   const [pendingWhatsAppUrl, setPendingWhatsAppUrl] = useState("");
   const [phoneComingSoonNotice, setPhoneComingSoonNotice] = useState(false);
 
-  // Pre-select service if `?service=<slug>` query param matches an enabled service
+  // Sync category and service selection from URL params
   useEffect(() => {
-    if (!serviceParam) return;
-    const matched = availableServices.find(
-      (item) =>
-        item.slug.toLowerCase() === serviceParam.toLowerCase() ||
-        item.label.toLowerCase() === serviceParam.toLowerCase()
-    );
-    if (matched) {
-      setSelectedService(matched.label);
+    if (categoryParam === "shraadh") {
+      setRitualCategory("shraadh");
+    } else if (categoryParam === "pooja") {
+      setRitualCategory("pooja");
     }
-  }, [serviceParam, availableServices]);
+  }, [categoryParam]);
+
+  useEffect(() => {
+    const list =
+      ritualCategory === "pooja" ? deityPoojas : shraadhSanskaars;
+
+    if (serviceParam) {
+      const decoded = decodeURIComponent(serviceParam).toLowerCase();
+      const matched = list.find(
+        (item) =>
+          item.title.toLowerCase() === decoded ||
+          item.slug.toLowerCase() === decoded
+      );
+      if (matched) {
+        setSelectedRitual(matched.title);
+        return;
+      }
+    }
+
+    if (!selectedRitual || !list.some((item) => item.title === selectedRitual)) {
+      setSelectedRitual(list[0]?.title || "");
+    }
+  }, [ritualCategory, serviceParam, deityPoojas, shraadhSanskaars, selectedRitual]);
 
   const validateStep1 = () => {
     const nextErrors: { [key: string]: string } = {};
@@ -80,23 +103,20 @@ function BookingWizardContent() {
     if (digitsOnly.length !== 10) {
       nextErrors.mobile = "Please enter a valid 10-digit mobile number.";
     }
+    if (!cityLocality.trim()) {
+      nextErrors.cityLocality = "Please enter your city or locality.";
+    }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
 
   const validateStep2 = () => {
     const nextErrors: { [key: string]: string } = {};
-    if (!consultationType) {
-      nextErrors.consultationType = "Please choose a consultation type.";
+    if (!selectedRitual) {
+      nextErrors.selectedRitual = "Please select a specific Pooja / Sanskaar.";
     }
-    if (!selectedService) {
-      nextErrors.selectedService = "Please select a service.";
-    }
-    if (!consultationMode) {
-      nextErrors.consultationMode = "Please select a consultation mode.";
-    }
-    if (!timeSlot) {
-      nextErrors.timeSlot = "Please select a preferred time slot.";
+    if (!preferredDate) {
+      nextErrors.preferredDate = "Please choose a preferred ritual date or Tithi.";
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -120,17 +140,25 @@ function BookingWizardContent() {
     e.preventDefault();
     if (!validateStep1() || !validateStep2()) return;
 
-    const fee = siteData.booking.consultationFee;
+    const categoryTitle =
+      ritualCategory === "pooja"
+        ? "Deity Pooja & Auspicious Anushthan"
+        : "Shraadh & After-Death Sanskaar";
+
     const payload = [
-      `*Consultation Booking Request!*`,
+      `*Sacred Pooja / Sanskaar Booking Request!*`,
       `*Name:* ${name.trim()}`,
       `*Mobile:* ${mobile.trim()}`,
-      `*Type:* ${consultationType}`,
-      `*Service:* ${selectedService}`,
-      `*Mode:* ${consultationMode}`,
+      `*City / Locality:* ${cityLocality.trim()}`,
+      `*Category:* ${categoryTitle}`,
+      `*Specific Ritual:* ${selectedRitual}`,
+      `*Samagri Arrangement:* ${samagriChoice}`,
+      `*Venue:* ${venueChoice}`,
+      `*Preferred Date / Tithi:* ${preferredDate}`,
       `*Time Slot:* ${timeSlot}`,
-      `*Message:* ${message.trim() || "N/A"}`,
-      `*Consultation Fee:* ${fee}`,
+      `*Family Gotra / Additional Notes:* ${
+        additionalNotes.trim() || "N/A"
+      }`,
     ].join("\n");
 
     const encodedText = encodeURIComponent(payload);
@@ -145,7 +173,7 @@ function BookingWizardContent() {
     setPendingWhatsAppUrl(waUrl);
     setShowConfirmModal(true);
 
-    // Trigger WhatsApp redirect in a new tab
+    // Trigger WhatsApp redirect in new tab
     window.open(waUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -159,6 +187,9 @@ function BookingWizardContent() {
       setTimeout(() => setPhoneComingSoonNotice(false), 4000);
     }
   };
+
+  const currentRitualList =
+    ritualCategory === "pooja" ? deityPoojas : shraadhSanskaars;
 
   return (
     <div className="relative py-12 sm:py-16 md:py-20">
@@ -180,15 +211,14 @@ function BookingWizardContent() {
           </p>
         </div>
 
-        {/* 2-Column Layout: Left 3-Step Wizard + Right Sticky Sidebar */}
+        {/* 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* LEFT COLUMN: Interactive 3-Step Wizard */}
           <div className="lg:col-span-7 xl:col-span-8">
             <div className="luxury-card rounded-3xl p-6 sm:p-10">
-              {/* Progress Indicator: Steps 1, 2, 3 with Animated Gold Progress Bar */}
+              {/* Progress Indicator */}
               <div className="relative z-10 mb-10">
                 <div className="relative flex items-center justify-between">
-                  {/* Track Line */}
                   <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-[var(--border-gold)] rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-gold-300 via-gold-500 to-gold-300"
@@ -202,9 +232,9 @@ function BookingWizardContent() {
                   </div>
 
                   {[
-                    { num: 1, label: "Personal Info" },
-                    { num: 2, label: "Consultation Details" },
-                    { num: 3, label: "Confirm & Book" },
+                    { num: 1, label: "Yajman Info" },
+                    { num: 2, label: "Ritual & Venue" },
+                    { num: 3, label: "Notes & Confirm" },
                   ].map((item) => {
                     const isActive = step === item.num;
                     const isCompleted = step > item.num;
@@ -243,14 +273,14 @@ function BookingWizardContent() {
                 </div>
               </div>
 
-              {/* Wizard Steps Content */}
+              {/* Wizard Form */}
               <form
                 onSubmit={handleConfirmBooking}
                 className="relative z-10"
                 noValidate
               >
                 <AnimatePresence mode="wait">
-                  {/* STEP 1: Personal Information */}
+                  {/* STEP 1: Personal Info & Location */}
                   {step === 1 && (
                     <motion.div
                       key="step-1"
@@ -265,7 +295,7 @@ function BookingWizardContent() {
                           Step 1 of 3
                         </span>
                         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mt-0.5">
-                          Personal Information
+                          Yajman (Client) Information
                         </h2>
                       </div>
 
@@ -275,7 +305,7 @@ function BookingWizardContent() {
                           htmlFor="booking-name"
                           className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                         >
-                          Your Name <span className="text-gold-400">*</span>
+                          Full Name (Yajman) <span className="text-gold-400">*</span>
                         </label>
                         <input
                           id="booking-name"
@@ -287,7 +317,7 @@ function BookingWizardContent() {
                             if (errors.name)
                               setErrors({ ...errors, name: "" });
                           }}
-                          placeholder="Enter your full name"
+                          placeholder="e.g. Ramesh Sharma"
                           className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)]/80 border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-colors"
                         />
                         {errors.name && (
@@ -303,7 +333,8 @@ function BookingWizardContent() {
                           htmlFor="booking-mobile"
                           className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                         >
-                          Mobile Number <span className="text-gold-400">*</span>
+                          Mobile Number (for WhatsApp / Call){" "}
+                          <span className="text-gold-400">*</span>
                         </label>
                         <input
                           id="booking-mobile"
@@ -329,19 +360,48 @@ function BookingWizardContent() {
                         )}
                       </div>
 
+                      {/* City / Locality * */}
+                      <div>
+                        <label
+                          htmlFor="booking-city"
+                          className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
+                        >
+                          City / Locality / Tirth Location{" "}
+                          <span className="text-gold-400">*</span>
+                        </label>
+                        <input
+                          id="booking-city"
+                          type="text"
+                          required
+                          value={cityLocality}
+                          onChange={(e) => {
+                            setCityLocality(e.target.value);
+                            if (errors.cityLocality)
+                              setErrors({ ...errors, cityLocality: "" });
+                          }}
+                          placeholder="e.g. South Delhi, Haridwar Ghat, or Jaipur"
+                          className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)]/80 border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-colors"
+                        />
+                        {errors.cityLocality && (
+                          <p className="text-xs text-red-400 mt-1.5">
+                            {errors.cityLocality}
+                          </p>
+                        )}
+                      </div>
+
                       <div className="pt-4 flex justify-end">
                         <button
                           type="button"
                           onClick={handleNextStep}
                           className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl btn-gold-primary text-sm sm:text-base font-semibold"
                         >
-                          <span>Next →</span>
+                          <span>Next: Ritual Details →</span>
                         </button>
                       </div>
                     </motion.div>
                   )}
 
-                  {/* STEP 2: Consultation Details */}
+                  {/* STEP 2: Ritual & Logistics Details */}
                   {step === 2 && (
                     <motion.div
                       key="step-2"
@@ -356,118 +416,138 @@ function BookingWizardContent() {
                           Step 2 of 3
                         </span>
                         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mt-0.5">
-                          Consultation Details
+                          Ritual & Logistics Selection
                         </h2>
                       </div>
 
-                      {/* Consultation Type *: Interactive Luxury Cards for "Online" vs "Offline" */}
+                      {/* Select Category *: Deity Poojas vs Shraadh Sanskaar */}
                       <div>
                         <label className="block text-sm font-semibold text-[var(--text-primary)] mb-2.5">
-                          Consultation Type{" "}
-                          <span className="text-gold-400">*</span>
+                          Sacred Category <span className="text-gold-400">*</span>
                         </label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          {siteData.booking.consultationTypes.map((typeObj) => {
-                            const isSelected =
-                              consultationType === typeObj.id;
-                            return (
-                              <button
-                                key={typeObj.id}
-                                type="button"
-                                onClick={() => setConsultationType(typeObj.id)}
-                                className={`text-left p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${
-                                  isSelected
-                                    ? "border-gold-400 bg-gold-500/15 shadow-gold-glow"
-                                    : "border-[var(--border-gold)] bg-[var(--bg-primary)]/60 hover:border-gold-400/60"
-                                }`}
-                              >
-                                <div
-                                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
-                                    isSelected
-                                      ? "bg-gold-500 text-obsidian"
-                                      : "bg-gold-500/10 text-gold-400 border border-gold-400/30"
-                                  }`}
-                                >
-                                  {typeObj.id === "Online" ? (
-                                    <Video className="w-5 h-5" />
-                                  ) : (
-                                    <Users className="w-5 h-5" />
-                                  )}
-                                </div>
-                                <div>
-                                  <div className="font-serif text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
-                                    <span>{typeObj.title}</span>
-                                    {isSelected && (
-                                      <CheckCircle2 className="w-4 h-4 text-gold-400" />
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-[var(--text-secondary)] mt-0.5 leading-relaxed">
-                                    {typeObj.subtitle}
-                                  </p>
-                                </div>
-                              </button>
-                            );
-                          })}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setRitualCategory("pooja");
+                              setSelectedRitual(deityPoojas[0]?.title || "");
+                            }}
+                            className={`text-left p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${
+                              ritualCategory === "pooja"
+                                ? "border-gold-400 bg-gold-500/15 shadow-gold-glow"
+                                : "border-[var(--border-gold)] bg-[var(--bg-primary)]/60 hover:border-gold-400/60"
+                            }`}
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-300 border border-gold-400/40 flex items-center justify-center shrink-0">
+                              <Flame className="w-5 h-5 text-gold-400" />
+                            </div>
+                            <div>
+                              <div className="font-serif text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
+                                <span>Deity Pooja / Shubh Karya</span>
+                                {ritualCategory === "pooja" && (
+                                  <CheckCircle2 className="w-4 h-4 text-gold-400" />
+                                )}
+                              </div>
+                              <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                                Ganesh, Lakshmi, Rudrabhishek, Griha Pravesh & Havans
+                              </p>
+                            </div>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setRitualCategory("shraadh");
+                              setSelectedRitual(shraadhSanskaars[0]?.title || "");
+                            }}
+                            className={`text-left p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${
+                              ritualCategory === "shraadh"
+                                ? "border-amber-300 bg-amber-500/15 shadow-md"
+                                : "border-[var(--border-gold)] bg-[var(--bg-primary)]/60 hover:border-amber-300/60"
+                            }`}
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-200 border border-amber-400/40 flex items-center justify-center shrink-0">
+                              <Droplets className="w-5 h-5 text-amber-200" />
+                            </div>
+                            <div>
+                              <div className="font-serif text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
+                                <span>Shraadh / After-Death Rites</span>
+                                {ritualCategory === "shraadh" && (
+                                  <CheckCircle2 className="w-4 h-4 text-amber-300" />
+                                )}
+                              </div>
+                              <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                                Antim Sanskaar, Terahvin, Pind Daan & Moksha Vidhi
+                              </p>
+                            </div>
+                          </button>
                         </div>
                       </div>
 
-                      {/* Select Service * (Dynamically populated from enabled astrologyServices & poojaServices) */}
+                      {/* Select Specific Ritual * */}
                       <div>
                         <label
-                          htmlFor="booking-service"
+                          htmlFor="booking-ritual-select"
                           className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                         >
-                          Select Service{" "}
+                          Select Specific Pooja / Sanskaar{" "}
                           <span className="text-gold-400">*</span>
                         </label>
                         <select
-                          id="booking-service"
-                          value={selectedService}
-                          onChange={(e) => setSelectedService(e.target.value)}
+                          id="booking-ritual-select"
+                          value={selectedRitual}
+                          onChange={(e) => setSelectedRitual(e.target.value)}
                           className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)]"
                         >
-                          {astrologyOptions.length > 0 && (
-                            <optgroup label="Astrology Services">
-                              {astrologyOptions.map((item) => (
-                                <option key={item.slug} value={item.label}>
-                                  {item.label}
-                                </option>
-                              ))}
-                            </optgroup>
-                          )}
-                          {poojaOptions.length > 0 && (
-                            <optgroup label="Pooja Services">
-                              {poojaOptions.map((item) => (
-                                <option key={item.slug} value={item.label}>
-                                  {item.label}
-                                </option>
-                              ))}
-                            </optgroup>
-                          )}
+                          {currentRitualList.map((item) => (
+                            <option key={item.id} value={item.title}>
+                              {item.title} ({item.duration})
+                            </option>
+                          ))}
                         </select>
                       </div>
 
-                      {/* Consultation Mode * & Preferred Time Slot * */}
+                      {/* Samagri Arrangement Choice * */}
+                      <div>
+                        <label className="block text-sm font-semibold text-[var(--text-primary)] mb-2">
+                          Samagri Arrangement <span className="text-gold-400">*</span>
+                        </label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {siteData.booking.samagriOptions.map((opt) => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => setSamagriChoice(opt)}
+                              className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all ${
+                                samagriChoice === opt
+                                  ? "border-gold-400 bg-gold-500/15 text-gold-300 shadow-sm"
+                                  : "border-[var(--border-gold)] bg-[var(--bg-primary)]/60 text-[var(--text-secondary)]"
+                              }`}
+                            >
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Ritual Venue & Time Slot */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
                           <label
-                            htmlFor="booking-mode"
+                            htmlFor="booking-venue"
                             className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                           >
-                            Consultation Mode{" "}
-                            <span className="text-gold-400">*</span>
+                            Ritual Venue <span className="text-gold-400">*</span>
                           </label>
                           <select
-                            id="booking-mode"
-                            value={consultationMode}
-                            onChange={(e) =>
-                              setConsultationMode(e.target.value)
-                            }
+                            id="booking-venue"
+                            value={venueChoice}
+                            onChange={(e) => setVenueChoice(e.target.value)}
                             className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)]"
                           >
-                            {siteData.booking.consultationModes.map((mode) => (
-                              <option key={mode} value={mode}>
-                                {mode}
+                            {siteData.booking.venues.map((venue) => (
+                              <option key={venue} value={venue}>
+                                {venue}
                               </option>
                             ))}
                           </select>
@@ -478,8 +558,7 @@ function BookingWizardContent() {
                             htmlFor="booking-timeslot"
                             className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                           >
-                            Preferred Time Slot{" "}
-                            <span className="text-gold-400">*</span>
+                            Preferred Time Slot <span className="text-gold-400">*</span>
                           </label>
                           <select
                             id="booking-timeslot"
@@ -496,6 +575,34 @@ function BookingWizardContent() {
                         </div>
                       </div>
 
+                      {/* Preferred Date / Tithi * */}
+                      <div>
+                        <label
+                          htmlFor="booking-date"
+                          className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
+                        >
+                          Preferred Date / Tithi / Muhurat{" "}
+                          <span className="text-gold-400">*</span>
+                        </label>
+                        <input
+                          id="booking-date"
+                          type="date"
+                          required
+                          value={preferredDate}
+                          onChange={(e) => {
+                            setPreferredDate(e.target.value);
+                            if (errors.preferredDate)
+                              setErrors({ ...errors, preferredDate: "" });
+                          }}
+                          className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)]"
+                        />
+                        {errors.preferredDate && (
+                          <p className="text-xs text-red-400 mt-1.5">
+                            {errors.preferredDate}
+                          </p>
+                        )}
+                      </div>
+
                       <div className="pt-4 flex items-center justify-between gap-4">
                         <button
                           type="button"
@@ -509,13 +616,13 @@ function BookingWizardContent() {
                           onClick={handleNextStep}
                           className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl btn-gold-primary text-sm sm:text-base font-semibold"
                         >
-                          <span>Next →</span>
+                          <span>Next: Notes & Confirm →</span>
                         </button>
                       </div>
                     </motion.div>
                   )}
 
-                  {/* STEP 3: Additional Information & Confirmation */}
+                  {/* STEP 3: Additional Notes & WhatsApp Confirmation */}
                   {step === 3 && (
                     <motion.div
                       key="step-3"
@@ -530,69 +637,77 @@ function BookingWizardContent() {
                           Step 3 of 3
                         </span>
                         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mt-0.5">
-                          Additional Information & Confirmation
+                          Family Gotra & Confirmation
                         </h2>
                       </div>
 
-                      {/* Booking Summary Pill Bar */}
-                      <div className="p-4 rounded-2xl bg-[var(--bg-primary)]/70 border border-[var(--border-gold)] text-xs sm:text-sm grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {/* Summary Review Pill Box */}
+                      <div className="p-4 rounded-2xl bg-[var(--bg-primary)]/70 border border-[var(--border-gold)] text-xs sm:text-sm grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <span className="text-[var(--text-muted)] block text-xs">
-                            Client
+                            Yajman Details
                           </span>
                           <span className="font-semibold text-[var(--text-primary)]">
-                            {name} ({mobile})
+                            {name} ({mobile}) • {cityLocality}
                           </span>
                         </div>
                         <div>
                           <span className="text-[var(--text-muted)] block text-xs">
-                            Service ({consultationType})
+                            Selected Ceremony
                           </span>
                           <span className="font-semibold text-gold-400">
-                            {selectedService}
+                            {selectedRitual}
                           </span>
                         </div>
                         <div>
                           <span className="text-[var(--text-muted)] block text-xs">
-                            Mode & Slot
+                            Venue & Samagri
                           </span>
                           <span className="font-semibold text-[var(--text-primary)]">
-                            {consultationMode} • {timeSlot}
+                            {venueChoice} • {samagriChoice.includes("Complete") ? "With Samagri" : "List Only"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[var(--text-muted)] block text-xs">
+                            Scheduled Timing
+                          </span>
+                          <span className="font-semibold text-[var(--text-primary)]">
+                            {preferredDate} ({timeSlot})
                           </span>
                         </div>
                       </div>
 
-                      {/* Message (Optional) */}
+                      {/* Additional Notes / Gotra */}
                       <div>
                         <label
-                          htmlFor="booking-message"
+                          htmlFor="booking-notes"
                           className="block text-sm font-semibold text-[var(--text-primary)] mb-2"
                         >
-                          Message (Optional)
+                          Additional Details (Optional)
                         </label>
                         <textarea
-                          id="booking-message"
+                          id="booking-notes"
                           rows={4}
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                          placeholder="Describe your problem or question in brief..."
+                          value={additionalNotes}
+                          onChange={(e) => setAdditionalNotes(e.target.value)}
+                          placeholder="Mention your Gotra, Nakshatra, specific deity sankalp, or urgent bereavement details..."
                           className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-primary)]/80 border border-[var(--border-gold)] focus:border-gold-400 focus:outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-colors"
                         />
                       </div>
 
-                      {/* Consultation Fee Box */}
-                      <div className="p-5 rounded-2xl border-2 border-gold-400/60 bg-gradient-to-r from-gold-500/15 via-gold-500/10 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-gold-glow">
+                      {/* Dakshina & Samagri Assurance Box */}
+                      <div className="p-5 rounded-2xl border-2 border-gold-400/60 bg-gradient-to-r from-gold-500/15 via-gold-500/10 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-gold-glow">
                         <div>
                           <span className="text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold block">
-                            Sacred Appointment Dakshina
+                            Strict Vedic Purity & Vidhi
                           </span>
-                          <span className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-                            Consultation Fee: {siteData.booking.consultationFee}
+                          <span className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                            Pandit Ji & Samagri Coordination
                           </span>
                         </div>
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-950/50 border border-emerald-500/40 px-3 py-1.5 rounded-full self-start sm:self-center">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-950/50 border border-emerald-500/40 px-3.5 py-1.5 rounded-full self-start sm:self-center">
                           <CheckCircle2 className="w-3.5 h-3.5" />
-                          Instant Slot Priority
+                          Shastra Vidhi Assured
                         </span>
                       </div>
 
@@ -617,10 +732,10 @@ function BookingWizardContent() {
                         </button>
                       </div>
 
-                      {/* 100% Confidential & Secure Lock Badge */}
+                      {/* Confidentiality Badge */}
                       <div className="pt-2 flex items-center justify-center gap-2 text-xs sm:text-sm text-[var(--text-secondary)]">
                         <Lock className="w-4 h-4 text-gold-400" />
-                        <span>100% Confidential & Secure</span>
+                        <span>100% Confidential & Sacred Sanatan Vidhi</span>
                       </div>
                     </motion.div>
                   )}
@@ -629,21 +744,21 @@ function BookingWizardContent() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Sticky Sidebar (3 Luxury Cards) */}
+          {/* RIGHT COLUMN: Sticky Sidebar */}
           <div className="lg:col-span-5 xl:col-span-4 space-y-6 lg:sticky lg:top-28">
-            {/* Card 1: Quick Booking Card */}
+            {/* Quick Booking Card */}
             <div className="luxury-card rounded-3xl p-6 sm:p-7">
               <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gold-400">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Instant Concierge</span>
+                  <span>Immediate Assistance</span>
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-                  Quick Booking
+                  Connect Directly
                 </h3>
                 <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                  Prefer direct assistance? Connect with our Vedic desk on
-                  WhatsApp or phone for immediate slot confirmation.
+                  Have urgent questions about Tithi, Muhurat, or bereavement rites?
+                  Connect directly with Pandit Ji on WhatsApp or phone.
                 </p>
 
                 <div className="pt-2 flex flex-col gap-3">
@@ -654,7 +769,7 @@ function BookingWizardContent() {
                     className="w-full inline-flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm shadow-md transition-all"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>WhatsApp Booking</span>
+                    <span>WhatsApp Inquiry</span>
                   </a>
 
                   <button
@@ -669,69 +784,24 @@ function BookingWizardContent() {
                             siteData.contact.displayPhone ||
                             siteData.contact.phoneNumber
                           }`
-                        : "Call Now"}
+                        : "Call Pandit Ji"}
                     </span>
                   </button>
 
                   {phoneComingSoonNotice && (
                     <p className="text-xs text-center text-gold-400 bg-gold-500/10 border border-gold-400/30 rounded-lg py-2 px-3">
-                      Contact Number Coming Soon — Please use WhatsApp Booking
-                      above!
+                      Contact number will be available soon. Please use WhatsApp Inquiry above!
                     </p>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Card 2: Consultation Options Summary Card */}
+            {/* Why Choose Us Card */}
             <div className="luxury-card rounded-3xl p-6 sm:p-7">
               <div className="relative z-10 space-y-4">
                 <h3 className="font-serif text-2xl font-bold text-gold-gradient">
-                  Consultation Options
-                </h3>
-                <ul className="space-y-3.5 text-sm">
-                  <li className="flex items-start gap-3">
-                    <Video className="w-4 h-4 text-gold-400 shrink-0 mt-1" />
-                    <div>
-                      <span className="font-semibold text-[var(--text-primary)] block">
-                        Online Consultation
-                      </span>
-                      <span className="text-xs text-[var(--text-secondary)]">
-                        Video, Phone, or WhatsApp globally
-                      </span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Users className="w-4 h-4 text-gold-400 shrink-0 mt-1" />
-                    <div>
-                      <span className="font-semibold text-[var(--text-primary)] block">
-                        Offline Consultation
-                      </span>
-                      <span className="text-xs text-[var(--text-secondary)]">
-                        In-person chart analysis & remedies
-                      </span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <ShieldCheck className="w-4 h-4 text-gold-400 shrink-0 mt-1" />
-                    <div>
-                      <span className="font-semibold text-[var(--text-primary)] block">
-                        100% Confidential
-                      </span>
-                      <span className="text-xs text-[var(--text-secondary)]">
-                        Private, ethical & personalized guidance
-                      </span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Card 3: Why Choose Us Card */}
-            <div className="luxury-card rounded-3xl p-6 sm:p-7">
-              <div className="relative z-10 space-y-4">
-                <h3 className="font-serif text-2xl font-bold text-gold-gradient">
-                  Why Choose Us
+                  Vedic Assurance
                 </h3>
                 <ul className="space-y-3 text-sm">
                   {siteData.booking.whyChooseUs.map((reason) => (
@@ -750,7 +820,7 @@ function BookingWizardContent() {
         </div>
       </div>
 
-      {/* Confirmation Modal ("BOOKING CONFIRMED!") */}
+      {/* Confirmation Modal */}
       <AnimatePresence>
         {showConfirmModal && (
           <motion.div
@@ -774,7 +844,7 @@ function BookingWizardContent() {
               </h3>
 
               <p className="text-sm sm:text-base text-gold-100/85 leading-relaxed mb-7">
-                You will be redirected to WhatsApp to complete your booking...
+                You will be redirected to WhatsApp to confirm ceremony dates and Samagri details with Pandit Ji...
               </p>
 
               <div className="flex flex-col gap-3">
@@ -802,7 +872,7 @@ export default function BookConsultationPage() {
       fallback={
         <div className="min-h-[60vh] flex items-center justify-center">
           <div className="text-gold-400 font-serif text-xl animate-pulse">
-            Preparing Sacred Consultation Portal...
+            Loading Sacred Booking Portal...
           </div>
         </div>
       }

@@ -35,7 +35,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* Top Announcement Bar (Removable via siteData.topBar.enabled) */}
+      {/* Top Announcement Bar */}
       {siteData.topBar.enabled && (
         <div className="w-full bg-gradient-to-r from-[#1A120B] via-[#2C1E10] to-[#1A120B] border-b border-gold-500/30 text-gold-100 py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide">
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
@@ -53,7 +53,7 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Brand Emblem & Title */}
+          {/* Brand Title */}
           <Link
             href="/"
             className="flex items-center gap-3 group focus:outline-none"
@@ -71,30 +71,33 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (or Return button on /book-consultation) */}
+          {/* Desktop Nav Links */}
           {!isBookingPage ? (
-            <div className="hidden lg:flex items-center gap-7">
+            <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-[var(--text-secondary)] hover:text-gold-400 transition-colors tracking-wide"
+                  className={`text-sm font-medium tracking-wide transition-colors ${
+                    pathname === link.href
+                      ? "text-gold-400 font-semibold"
+                      : "text-[var(--text-secondary)] hover:text-gold-400"
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           ) : (
             <div className="hidden md:flex items-center">
               <span className="text-xs uppercase tracking-[0.22em] text-[var(--text-muted)]">
-                Sacred Appointment Concierge
+                Vedic Pooja & Sanskaar Booking
               </span>
             </div>
           )}
 
-          {/* Right Actions: Theme Toggle + CTA / View Website */}
+          {/* Right Actions: Theme Toggle + CTAs */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Royal Obsidian / Sacred Ivory Theme Toggle */}
             <button
               type="button"
               onClick={toggleTheme}
@@ -133,7 +136,7 @@ export function Navbar() {
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full btn-gold-outline text-xs sm:text-sm font-semibold"
               >
                 <ArrowLeft className="w-4 h-4 text-gold-400" />
-                <span>View Website</span>
+                <span>Return Home</span>
               </Link>
             ) : (
               <>
@@ -152,7 +155,7 @@ export function Navbar() {
                   className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full btn-gold-primary text-xs sm:text-sm"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Book Appointment</span>
+                  <span>Book Pandit Ji</span>
                 </Link>
               </>
             )}
@@ -180,14 +183,14 @@ export function Navbar() {
           <div className="lg:hidden border-t border-[var(--border-gold)] bg-[var(--bg-secondary)] px-6 py-5 space-y-4">
             <div className="flex flex-col space-y-3">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-base font-medium text-[var(--text-primary)] hover:text-gold-400 py-1 transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
             <div className="pt-3 border-t border-[var(--border-gold)] flex flex-col sm:flex-row gap-3">
@@ -197,7 +200,7 @@ export function Navbar() {
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full btn-gold-primary text-sm"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Book Appointment</span>
+                <span>Book Pandit Ji</span>
               </Link>
               <a
                 href={buildWhatsAppUrl()}

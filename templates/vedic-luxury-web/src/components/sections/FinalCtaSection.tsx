@@ -9,10 +9,6 @@ import { siteData, buildWhatsAppUrl } from "@/config/siteData";
 export function FinalCtaSection() {
   if (!siteData.finalCta.enabled) return null;
 
-  const consultHref = siteData.servicesSection.enabled
-    ? "#services"
-    : "/book-consultation";
-
   return (
     <section className="relative py-20 md:py-28 border-t border-[var(--border-gold)]/50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,20 +39,20 @@ export function FinalCtaSection() {
 
             {/* 3 CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href={consultHref}
+              <Link
+                href="/pooja-services"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full btn-gold-primary text-sm sm:text-base"
               >
-                <span>{siteData.finalCta.buttons.consultNow}</span>
+                <span>{siteData.finalCta.buttons.deityPooja}</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               <Link
-                href="/book-consultation"
+                href="/shraadh-sanskaar"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-gold-300/60 bg-white/5 hover:bg-gold-500/20 text-white text-sm sm:text-base font-semibold transition-all hover:-translate-y-0.5"
               >
                 <Calendar className="w-4 h-4 text-gold-400" />
-                <span>{siteData.finalCta.buttons.bookAppointment}</span>
+                <span>{siteData.finalCta.buttons.shraadhSanskaar}</span>
               </Link>
 
               <a

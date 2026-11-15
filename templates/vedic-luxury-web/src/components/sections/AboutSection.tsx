@@ -2,11 +2,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Award, Globe2, Sparkles, Users } from "lucide-react";
+import { BookOpen, Sparkles, Flame, Users } from "lucide-react";
 import { siteData } from "@/config/siteData";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-const highlightIcons = [Sparkles, Globe2, Award, Users];
+const highlightIcons = [BookOpen, Flame, Sparkles, Users];
 
 export function AboutSection() {
   if (!siteData.about.enabled) return null;
@@ -53,10 +53,10 @@ export function AboutSection() {
                     className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
                   />
 
-                  {/* Subtle Bottom Nameplate Overlay */}
+                  {/* Bottom Nameplate Overlay */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-5 text-center">
                     <span className="inline-block text-[11px] uppercase tracking-[0.22em] text-gold-300 font-semibold">
-                      {siteData.brand.astrologerName}
+                      {siteData.brand.panditName}
                     </span>
                     <p className="font-serif text-lg text-white font-semibold mt-0.5">
                       {siteData.about.bioTitle}
@@ -77,7 +77,7 @@ export function AboutSection() {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 text-xs font-semibold tracking-widest uppercase text-gold-400">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Vedic Lineage & Spiritual Mastery</span>
+              <span>Rigveda & Yajurveda Karamkand Mastery</span>
             </div>
 
             <h3 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">
@@ -108,7 +108,7 @@ export function AboutSection() {
                         {highlight}
                       </h4>
                       <p className="text-xs text-[var(--text-muted)] mt-0.5">
-                        Sacred Vedic Standard
+                        Strict Shastric Standard
                       </p>
                     </div>
                   </div>

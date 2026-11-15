@@ -1,60 +1,78 @@
 // ============================================================================
 // MASTER SITE CONFIGURATION (`src/config/siteData.ts`)
+// Project Celestial Heritage — Vedic Pandit & Karamkand Services
 // ============================================================================
-// Every section and every service/pooja/video item has an `enabled: boolean`
+// Every section and every service/ritual/video item has an `enabled: boolean`
 // flag. Set `enabled: false` or delete an entry from any array to cleanly
 // remove it from the landing page, navigation bar, and booking dropdowns.
 // ============================================================================
 
 export type LuxuryIconName =
-  | "compass"
-  | "home"
-  | "heart"
-  | "gem"
-  | "briefcase"
-  | "activity"
-  | "trending-up"
   | "flame"
   | "sparkles"
   | "sun"
   | "moon"
   | "shield"
   | "video"
-  | "users";
+  | "users"
+  | "book"
+  | "lotus"
+  | "droplet"
+  | "feather"
+  | "clock"
+  | "map-pin";
 
-export interface AstrologyServiceItem {
-  id: string;
-  slug: string;
+export interface ServiceGatewayItem {
+  id: "deity-pooja" | "shraadh-sanskaar";
   enabled: boolean;
+  sanskritTag: string;
   title: string;
+  subtitle: string;
   description: string;
-  icon: LuxuryIconName;
-  badges: string[];
+  highlights: string[];
   ctaText: string;
+  targetRoute: string;
+  accent: "gold-crimson" | "alabaster-silver";
 }
 
-export interface PoojaServiceItem {
+export interface DeityPoojaItem {
   id: string;
   slug: string;
   enabled: boolean;
   title: string;
+  deityOrCategory: string;
+  filterCategory: "Deity Worship" | "Havan & Jaap" | "Home & Sanskaar";
   description: string;
   duration: string;
-  mode: string;
-  pill: string;
+  samagriIncluded: boolean;
+  modes: string[];
   image: string;
-  ctaText: string;
+  badge: string;
+}
+
+export interface ShraadhSanskaarItem {
+  id: string;
+  slug: string;
+  enabled: boolean;
+  title: string;
+  categoryTag: string;
+  filterCategory: "Antim & Terahvin Rites" | "Pind Daan & Shraadh" | "Pitru Dosh & Moksha";
+  description: string;
+  duration: string;
+  samagriIncluded: boolean;
+  modes: string[];
+  image: string;
+  badge: string;
 }
 
 export interface VideoGalleryItem {
   id: string;
   enabled: boolean;
   title: string;
-  category: string;
+  category: "Dev Pooja" | "Pitru Karya" | "Havan & Mantra";
   description: string;
   videoUrl: string;
   posterUrl: string;
-  duration?: string;
 }
 
 export interface ConsultationOptionItem {
@@ -71,12 +89,13 @@ export const siteData = {
   // 1. BRAND & GLOBAL IDENTITY
   // --------------------------------------------------------------------------
   brand: {
-    titleDevanagari: "श्री श्री विद्या",
-    titleEnglish: "Astrology",
-    fullTitle: "श्री श्री विद्या Astrology",
-    subtitle: "Divine Vedic Guidance",
-    astrologerName: "Acharya Ji",
-    tagline: "Transform Your Life with Ancient Wisdom & Spiritual Guidance",
+    titleDevanagari: "श्री वैदिक पूजा एवं संस्कार केंद्र",
+    titleEnglish: "Project Celestial Heritage",
+    fullTitle: "श्री वैदिक पूजा एवं संस्कार केंद्र",
+    subtitle: "Vedic Pandit & Karamkand Services",
+    panditName: "Pandit Ji",
+    tagline:
+      "Performing auspicious Deity Poojas and solemn Ancestral Shraadh rites with strict adherence to Vedic Vidhi and purity.",
   },
 
   // --------------------------------------------------------------------------
@@ -85,11 +104,11 @@ export const siteData = {
   contact: {
     whatsappNumber: "", // Keep blank! Format later as "91XXXXXXXXXX"
     phoneNumber: "",    // Keep blank! Format later as "+91 XXXXX XXXXX"
-    displayPhone: "",   // Keep blank!
+    displayPhone: "",   // Keep blank! Format later as "+91 XXXXX XXXXX"
     email: "",
-    location: "India (Online & Offline Consultations Available)",
+    location: "Available for At-Home, Temple, Tirth & Online Sankalp Rituals",
     defaultWhatsAppText:
-      "Namaste! I would like to inquire about Vedic Astrology & Pooja consultations.",
+      "Namaste Pandit Ji! I would like to inquire regarding Vedic Pooja / Shraadh Sanskaar Vidhi.",
   },
 
   // --------------------------------------------------------------------------
@@ -97,7 +116,7 @@ export const siteData = {
   // --------------------------------------------------------------------------
   topBar: {
     enabled: true,
-    text: "✨ Authentic Vedic Astrology Services | Online & Offline Consultations Available",
+    text: "✨ Authentic Vedic Pooja, Anushthan & Pitru Shraadh Sanskaar | With Complete Pooja Samagri",
   },
 
   // --------------------------------------------------------------------------
@@ -105,483 +124,644 @@ export const siteData = {
   // --------------------------------------------------------------------------
   hero: {
     enabled: true,
-    badge: "Certified Vedic Astrologer",
-    headline: "Divine Vedic Guidance",
-    subheadline: "श्री श्री विद्या Astrology",
-    tagline: "Transform Your Life with Ancient Wisdom & Spiritual Guidance",
+    badge: "Vedic Karamkand & Ritual Specialist",
+    headline: "Sacred Vedic Poojas & Sanskaars",
+    subheadline: "श्री वैदिक पूजा एवं संस्कार केंद्र",
+    tagline:
+      "Performing auspicious Deity Poojas and solemn Ancestral Shraadh rites with strict adherence to Vedic Vidhi and purity.",
     videoSrc: "/assets/hero-ritual.mp4",
     fallbackBgSvg: "/assets/hero-bg-fallback.svg",
-    trustPills: ["Trusted Expert", "Online & Offline", "1000+ Clients"],
+    trustPills: [
+      "Rigveda & Yajurveda Vidhi",
+      "Dev & Pitru Karya Specialist",
+      "Complete Samagri Provided",
+      "At-Home & Tirth Venues",
+    ],
     ctas: {
-      primary: "Consult Now",
-      secondary: "Book Appointment",
-      whatsapp: "WhatsApp",
+      primary: "Select Sacred Seva",
+      secondary: "Book Pandit Ji",
+      whatsapp: "WhatsApp Inquiry",
     },
   },
 
   // --------------------------------------------------------------------------
-  // 5. ABOUT THE ASTROLOGER SECTION (`id: "about"`)
+  // 5. ABOUT THE PANDIT JI SECTION (`id: "about"`)
   // --------------------------------------------------------------------------
   about: {
     id: "about",
-    navLabel: "About",
+    navLabel: "About Pandit Ji",
     enabled: true,
-    badge: "KNOW YOUR ASTROLOGER",
-    heading: "About the Astrologer",
-    subtitle: "Bridging ancient wisdom with modern guidance",
-    // Replace this dummy SVG path with the real astrologer photo (e.g., "/assets/astrologer.jpg")
+    badge: "VEDIC TRADITION & LINEAGE",
+    heading: "About Pandit Ji",
+    subtitle: "Preserving pure Vedic Karamkand, Mantra Ucharan & Shastra Vidhi",
     image: "/assets/astrologer-placeholder.svg",
-    bioTitle: "Dedicated Vedic Practitioner",
+    bioTitle: "Revered Vedic Karamkand Practitioner",
     paragraphs: [
-      "We are dedicated practitioners of Vedic astrology, committed to preserving and sharing ancient wisdom in the modern world.",
-      "Our services combine traditional Vedic principles with contemporary understanding, offering both online and offline consultations.",
-      "Whether you seek clarity in career, harmony in relationships, or spiritual growth — we guide your journey.",
+      "With rigorous traditional training in Rigveda and Yajurveda Karamkand, Pandit Ji conducts every ritual in strict alignment with sacred Shastras, authentic Vedic phonetics (Veda Swara), and complete purity.",
+      "Our services encompass both pillars of Vedic Sanatan tradition: auspicious Dev Karya (Deity worship, Griha Pravesh, Havans, and Vivah Sanskaar) and solemn Pitru Karya (Antim Sanskaar, Terahvin, Pind Daan, and Moksha rites).",
+      "Every ceremony is conducted with dignified reverence and complete arrangements — including pure authentic Pooja Samagri, Havan Kund, and personalized guidance for the family.",
     ],
     highlights: [
-      "Authentic Vedic Knowledge",
-      "Online & Offline Services",
-      "Experienced Practitioners",
-      "Trusted by Thousands",
+      "Pure Vedic Mantra Recitation",
+      "Dev & Pitru Karya Mastery",
+      "Complete Pooja Samagri Provided",
+      "Compassionate Family Guidance",
     ],
   },
 
   // --------------------------------------------------------------------------
-  // 6. SACRED CEREMONY FEATURED VIDEO (`id: "ceremony"`)
+  // 6. 2-CARD PRIMARY SERVICE GATEWAYS (HOMEPAGE HERO SELECTION)
+  // --------------------------------------------------------------------------
+  serviceGatewaysSection: {
+    id: "services",
+    navLabel: "Sacred Offerings",
+    enabled: true,
+    badge: "SACRED VEDIC OFFERINGS",
+    heading: "Select Your Sacred Seva",
+    subtitle:
+      "Choose between auspicious Deity Poojas for prosperity or solemn Shraadh Sanskaars for ancestral peace",
+  },
+
+  serviceGateways: [
+    {
+      id: "deity-pooja",
+      enabled: true,
+      sanskritTag: "देव कार्य • शुभ अनुष्ठान",
+      title: "Hindu Deity Poojas & Auspicious Rituals",
+      subtitle: "Prosperity, Health, Family Harmony & Auspicious Milestones",
+      description:
+        "Invoke divine blessings for health, wealth, harmony, and new beginnings through authentic Vedic Poojas, Havans, and Jaaps dedicated to Hindu deities.",
+      highlights: [
+        "Ganesh, Lakshmi, Shiva & Durga Poojas",
+        "Griha Pravesh, Vastu & Vivah Sanskaar",
+        "Mahamrityunjaya & Navgrah Havan",
+        "Complete Pooja Samagri Provided",
+      ],
+      ctaText: "Explore Deity Poojas",
+      targetRoute: "/pooja-services",
+      accent: "gold-crimson",
+    },
+    {
+      id: "shraadh-sanskaar",
+      enabled: true,
+      sanskritTag: "पितृ कार्य • मोक्ष संस्कार",
+      title: "Shraadh, Pitru Karya & Antim Sanskaar",
+      subtitle: "Solemn Rites for Departed Souls, Ancestral Peace & Moksha",
+      description:
+        "Sacred, dignified Vedic rites for departed souls, ancestral peace (Pitru Shanti), and liberation (Moksha), performed strictly according to Garuda Purana and Vedic Shastras.",
+      highlights: [
+        "Antim Sanskaar & Dasha/Terahvin Vidhi",
+        "Pind Daan, Tarpan & Varshik Shraadh",
+        "Narayan Bali & Tripindi Shraadh",
+        "Garud Puran Paath & Shanti Havan",
+      ],
+      ctaText: "Explore Shraadh & Sanskaar",
+      targetRoute: "/shraadh-sanskaar",
+      accent: "alabaster-silver",
+    },
+  ] as ServiceGatewayItem[],
+
+  // --------------------------------------------------------------------------
+  // 7. DEITY POOJA SERVICES (`/pooja-services`, 10 Removable Cards)
+  // --------------------------------------------------------------------------
+  deityPoojaSection: {
+    enabled: true,
+    badge: "DEV KARYA • AUSPICIOUS BLESSINGS",
+    heading: "Hindu Deity Poojas & Auspicious Anushthans",
+    subtitle:
+      "Sacred Vedic worship, Havans, and Abhishek ceremonies performed with pure Samagri and devotion",
+    shloka: "॥ ॐ नमः शिवाय • ॐ गं गणपतये नमः • ॐ श्रीं महालक्ष्म्यै नमः ॥",
+  },
+
+  deityPoojaServices: [
+    {
+      id: "dev-1",
+      slug: "ganesh-sthapana",
+      enabled: true,
+      title: "Ganesh Sthapana & Atharvashirsha Path",
+      deityOrCategory: "Lord Ganesha",
+      filterCategory: "Deity Worship",
+      description:
+        "Remove obstacles, invoke auspiciousness, and bless new ventures with detailed Vedic Shodashopachara pooja and 21 Avartan Atharvashirsha recitation.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Temple", "Online Sankalp"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-2",
+      slug: "mahalakshmi-kuber-pooja",
+      enabled: true,
+      title: "Mahalakshmi & Kuber Pooja",
+      deityOrCategory: "Goddess Lakshmi & Lord Kuber",
+      filterCategory: "Deity Worship",
+      description:
+        "Invoke divine wealth, business prosperity, and financial stability with Shree Suktam Path, Kanakdhara recitation, and sacred Kuber Havan.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Office / Business", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-3",
+      slug: "rudrabhishek",
+      enabled: true,
+      title: "Laghu & Maha Rudrabhishek",
+      deityOrCategory: "Lord Shiva",
+      filterCategory: "Deity Worship",
+      description:
+        "Sacred Rudri Path with Panchamrit Abhishek of Shiva Lingam for health, mental tranquility, longevity, and destruction of negative energies.",
+      duration: "3-4 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Shiva Temple", "Online Sankalp"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-4",
+      slug: "satyanarayan-katha",
+      enabled: true,
+      title: "Shri Satyanarayan Maha Pooja & Katha",
+      deityOrCategory: "Lord Vishnu",
+      filterCategory: "Home & Sanskaar",
+      description:
+        "Traditional full 5-adhyaya Katha recitation, Vishnu Sahasranama, Panchamrit, and Prasad distribution for family harmony and auspicious milestones.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Community Hall", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-5",
+      slug: "durga-saptashati-chandi-path",
+      enabled: true,
+      title: "Sampoorna Durga Saptashati / Chandi Path",
+      deityOrCategory: "Goddess Durga",
+      filterCategory: "Havan & Jaap",
+      description:
+        "Powerful Devi recitation of 700 verses from Markandeya Purana with Navarna Mantra Jaap and Chandi Havan for divine protection and victory over distress.",
+      duration: "4-6 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-6",
+      slug: "mahamrityunjaya-jaap-havan",
+      enabled: true,
+      title: "Mahamrityunjaya Mantra Jaap & Havan",
+      deityOrCategory: "Lord Shiva",
+      filterCategory: "Havan & Jaap",
+      description:
+        "Sankalp-based 11,000 / 21,000 / 1.25 Lakh mantra jaap with consecrated sacrificial Ahutis for overcoming chronic illnesses, untimely demise, and accidents.",
+      duration: "Full Day / Multi-day",
+      samagriIncluded: true,
+      modes: ["At Home", "Temple", "Sacred Tirth"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-7",
+      slug: "saraswati-pooja-vidyarambha",
+      enabled: true,
+      title: "Saraswati Pooja & Vidyarambha Sanskaar",
+      deityOrCategory: "Goddess Saraswati",
+      filterCategory: "Home & Sanskaar",
+      description:
+        "Sacred blessings for children initiating education, academic excellence, memory enhancement, and mastery in arts, speech, and literature.",
+      duration: "2 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "School / Institute", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-8",
+      slug: "sundarkand-hanuman-havan",
+      enabled: true,
+      title: "Sundarkand Path & Hanuman Chalisa Havan",
+      deityOrCategory: "Lord Hanuman",
+      filterCategory: "Havan & Jaap",
+      description:
+        "Melodious recitation of Goswami Tulsidas's Sundarkand followed by 108 Hanuman Chalisa samput and Havan to banish fear, planetary doshas, and enemies.",
+      duration: "3 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-9",
+      slug: "navgrah-shanti-havan",
+      enabled: true,
+      title: "Navgrah Shanti Pooja & Havan",
+      deityOrCategory: "Nine Celestial Deities",
+      filterCategory: "Havan & Jaap",
+      description:
+        "Pacify malefic planetary influences (Surya to Ketu) with specific samidhas, planetary grains, Navgrah Yantra worship, and Vedic Ahutis.",
+      duration: "3-4 hours",
+      samagriIncluded: true,
+      modes: ["At Home", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+    {
+      id: "dev-10",
+      slug: "griha-pravesh-vastu-shanti",
+      enabled: true,
+      title: "Griha Pravesh & Vastu Shanti Pooja",
+      deityOrCategory: "Vastu Purusha & Deities",
+      filterCategory: "Home & Sanskaar",
+      description:
+        "Auspicious new home entry ritual with Vastu Purusha pooja, Navgrah Sthapana, Ganpati pooja, Dwar pooja, and purifying Havan for domestic peace and prosperity.",
+      duration: "3-4 hours",
+      samagriIncluded: true,
+      modes: ["At New Home / Flat", "New Commercial Space"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "With Complete Samagri",
+    },
+  ] as DeityPoojaItem[],
+
+  // --------------------------------------------------------------------------
+  // 8. SHRAADH & AFTER-DEATH SANSKAAR (`/shraadh-sanskaar`, 10 Removable Cards)
+  // --------------------------------------------------------------------------
+  shraadhSanskaarSection: {
+    enabled: true,
+    badge: "PITRU KARYA • MOKSHA & PEACE",
+    heading: "Shraadh, Pitru Karya & After-Death Sanskaar",
+    subtitle:
+      "Dignified Vedic rites for departed ancestors and peaceful transition, guided strictly by Garuda Purana and Vedic Shastras",
+    shloka: "॥ ॐ पितृगणाय विद्महे जगत धारिणे धीमहि तन्नो पितरो प्रचोदयात् ॥",
+    urgentNotice:
+      "Need urgent guidance for Antim Sanskaar, Dasha, or Terahvin dates? Connect directly on WhatsApp or Call for immediate Vedic assistance and full Samagri arrangement.",
+  },
+
+  shraadhSanskaarServices: [
+    {
+      id: "pitru-1",
+      slug: "antim-sanskaar-antyeshti",
+      enabled: true,
+      title: "Antim Sanskaar (Antyeshti) Complete Vidhi",
+      categoryTag: "Final Rites",
+      filterCategory: "Antim & Terahvin Rites",
+      description:
+        "Complete Vedic last rites, Mukhagni vidhi, sacred chants, and ritual steps performed with utmost solemnity and compassionate family guidance.",
+      duration: "As per requirement",
+      samagriIncluded: true,
+      modes: ["Crematorium / Mukti Dham", "Ghat", "Hospital / Residence"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-2",
+      slug: "dasha-ekadasha-terahvin-kriya",
+      enabled: true,
+      title: "Dasha, Ekadasha & Terahvin (10th to 13th Day) Kriya",
+      categoryTag: "Post-Demise Rites",
+      filterCategory: "Antim & Terahvin Rites",
+      description:
+        "Sequential post-cremation rituals: Dasha Shuddhi, Ekadasha Pind Daan, Dwadasha Sapindikaran, Pagdi Rasam, and 13th Day Brahmin Bhoj sankalp.",
+      duration: "3-5 hours",
+      samagriIncluded: true,
+      modes: ["Residence", "Community Hall", "River Ghat"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-3",
+      slug: "pind-daan-pitru-tarpan",
+      enabled: true,
+      title: "Pind Daan & Pitru Tarpan Vidhi",
+      categoryTag: "Ancestral Offering",
+      filterCategory: "Pind Daan & Shraadh",
+      description:
+        "Sacred offerings of barley flour Pindas, black sesame, Kusha grass, and Tarpana water to satisfy and nourish ancestors across generations.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["Sacred River / Ghat", "Residence", "Online Sankalp"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-4",
+      slug: "garud-puran-katha-vachan",
+      enabled: true,
+      title: "Garud Puran Katha Vachan (9 or 13 Days)",
+      categoryTag: "Sacred Recitation",
+      filterCategory: "Antim & Terahvin Rites",
+      description:
+        "Daily recitation and philosophical discourse of the Garuda Purana during the mourning period to grant solace to the family and liberation to the soul.",
+      duration: "2 hours daily",
+      samagriIncluded: true,
+      modes: ["At Residence", "Online Daily Stream"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Pustak & Path Included",
+    },
+    {
+      id: "pitru-5",
+      slug: "varshik-shraadh-pitru-paksha",
+      enabled: true,
+      title: "Varshik Shraadh (Barsi) & Pitru Paksha Shraadh",
+      categoryTag: "Annual Tithi Rites",
+      filterCategory: "Pind Daan & Shraadh",
+      description:
+        "Annual death anniversary Shraadh (Barsi) and Mahalaya Pitru Paksha Tithi rituals to seek ancestral blessings for children, health, and lineage.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["Residence", "Temple / Ghat"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-6",
+      slug: "tripindi-shraadh-pooja",
+      enabled: true,
+      title: "Tripindi Shraadh Pooja",
+      categoryTag: "Pitru Dosh Nivaran",
+      filterCategory: "Pitru Dosh & Moksha",
+      description:
+        "Special Pind Daan dedicated to Brahma, Vishnu, and Rudra to liberate unsatisfied souls across three generations and resolve chronic Pitru Dosha.",
+      duration: "3-4 hours",
+      samagriIncluded: true,
+      modes: ["Sacred Tirth (Gaya / Haridwar / Trimbak)", "Local River Ghat"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-7",
+      slug: "narayan-bali-nagbali",
+      enabled: true,
+      title: "Narayan Bali & Nagbali Sanskaar",
+      categoryTag: "Special Moksha Vidhi",
+      filterCategory: "Pitru Dosh & Moksha",
+      description:
+        "Specific high-level Vedic ritual prescribed in Garuda Purana for untimely or accidental demises, childlessness, or severe curses of the departed.",
+      duration: "Full Day",
+      samagriIncluded: true,
+      modes: ["Designated Tirth / Ghat", "Special Vedic Setup"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-8",
+      slug: "asthi-sanchay-visarjan",
+      enabled: true,
+      title: "Asthi Sanchay & Asthi Visarjan Vidhi",
+      categoryTag: "Sacred Immersion",
+      filterCategory: "Antim & Terahvin Rites",
+      description:
+        "Collection of holy remains (Asthi Sanchayan) and immersion chanting at sacred rivers (Ganga, Yamuna, Godavari) with proper Gotra sankalp.",
+      duration: "1-2 hours",
+      samagriIncluded: true,
+      modes: ["Crematorium", "Sacred River Ghat (Haridwar / Prayag / Local)"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "pitru-9",
+      slug: "masik-shraadh-chhamahi",
+      enabled: true,
+      title: "Masik Shraadh & Chhamahi Vidhi",
+      categoryTag: "Monthly Rites",
+      filterCategory: "Pind Daan & Shraadh",
+      description:
+        "Observance of the monthly Shraadh rituals during the first mourning year leading up to the 6-month Chhamahi and annual Varshik milestone.",
+      duration: "2 hours",
+      samagriIncluded: true,
+      modes: ["Residence", "River Ghat"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+    {
+      id: "dev-10-peace",
+      slug: "shanti-path-gayatri-havan",
+      enabled: true,
+      title: "Shanti Path & Gayatri Havan",
+      categoryTag: "Peace & Purification",
+      filterCategory: "Pitru Dosh & Moksha",
+      description:
+        "Purifying Gayatri and Maha Shanti Havan performed after the completion of mourning rites to cleanse the home and restore peace and spiritual positivity.",
+      duration: "2-3 hours",
+      samagriIncluded: true,
+      modes: ["At Residence", "Temple"],
+      image: "/assets/pooja-placeholder.svg",
+      badge: "Vidhi & Samagri Included",
+    },
+  ] as ShraadhSanskaarItem[],
+
+  // --------------------------------------------------------------------------
+  // 9. SACRED CEREMONY FEATURED VIDEO (`id: "ceremony"`)
   // --------------------------------------------------------------------------
   ceremony: {
     id: "ceremony",
-    navLabel: "Ceremony",
+    navLabel: "Ritual Video",
     enabled: true,
-    badge: "WATCH OUR RITUALS",
-    heading: "Sacred Ceremony",
+    badge: "SACRED KARAMKAND",
+    heading: "Witness Pure Vedic Ceremonies",
     subtitle:
-      "Witness the sanctity, Vedic precision, and spiritual resonance of our traditional rituals",
+      "Experience the sanctity, authentic Vedic swaras, and strict ritual purity of our Havans and Anushthans",
     videoSrc: "/assets/sacred-ceremony.mp4",
     posterSvg: "/assets/pooja-placeholder.svg",
   },
 
   // --------------------------------------------------------------------------
-  // 7. ASTROLOGY SERVICES SECTION (`id: "services"`, 7 Removable Cards)
-  // --------------------------------------------------------------------------
-  servicesSection: {
-    id: "services",
-    navLabel: "Astrology Services",
-    enabled: true,
-    badge: "OUR EXPERTISE",
-    heading: "Astrology Services",
-    subtitle: "Comprehensive Vedic astrology solutions for all life aspects",
-  },
-
-  astrologyServices: [
-    {
-      id: "astro-1",
-      slug: "kundli-analysis",
-      enabled: true,
-      title: "Kundli Analysis",
-      description:
-        "Detailed birth chart reading with predictions for career, marriage, health, and finances.",
-      icon: "compass",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-2",
-      slug: "vastu-consultation",
-      enabled: true,
-      title: "Vastu Consultation",
-      description:
-        "Harmonize your space with ancient Vastu Shastra for prosperity and peace.",
-      icon: "home",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-3",
-      slug: "matchmaking",
-      enabled: true,
-      title: "Matchmaking",
-      description:
-        "Comprehensive Kundli matching for compatible and successful marriages.",
-      icon: "heart",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-4",
-      slug: "remedies",
-      enabled: true,
-      title: "Remedies",
-      description:
-        "Personalized gemstone recommendations and spiritual remedies for life challenges.",
-      icon: "gem",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-5",
-      slug: "career-guidance",
-      enabled: true,
-      title: "Career Guidance",
-      description:
-        "Strategic insights for career growth, job changes, and professional success.",
-      icon: "briefcase",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-6",
-      slug: "health-astrology",
-      enabled: true,
-      title: "Health Astrology",
-      description:
-        "Predict health issues and receive preventive astrological guidance.",
-      icon: "activity",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-    {
-      id: "astro-7",
-      slug: "business-astrology",
-      enabled: true,
-      title: "Business Astrology",
-      description:
-        "Auspicious timing and strategic guidance for business ventures.",
-      icon: "trending-up",
-      badges: ["Online Available", "Offline Available"],
-      ctaText: "Book Consultation",
-    },
-  ] as AstrologyServiceItem[],
-
-  // --------------------------------------------------------------------------
-  // 8. POOJA SERVICES SECTION (`id: "pooja"`, 10 Removable Cards)
-  // --------------------------------------------------------------------------
-  poojaSection: {
-    id: "pooja",
-    navLabel: "Pooja Services",
-    enabled: true,
-    badge: "SACRED RITUALS",
-    heading: "Pooja Services",
-    subtitle: "Divine ceremonies for prosperity, health, and spiritual growth",
-  },
-
-  poojaServices: [
-    {
-      id: "pooja-1",
-      slug: "mahamrityunjaya-jaap",
-      enabled: true,
-      title: "Mahamrityunjaya Jaap",
-      description:
-        "Powerful mantra for health, longevity, and protection from diseases",
-      duration: "3-5 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-2",
-      slug: "lakshmi-pooja",
-      enabled: true,
-      title: "Lakshmi Pooja",
-      description:
-        "Invoke Goddess Lakshmi for wealth, prosperity, and abundance",
-      duration: "2-3 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-3",
-      slug: "saraswati-pooja",
-      enabled: true,
-      title: "Saraswati Pooja",
-      description:
-        "Blessings for knowledge, wisdom, and academic excellence",
-      duration: "2-3 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-4",
-      slug: "vivah-badha-nivaran",
-      enabled: true,
-      title: "Vivah Badha Nivaran",
-      description:
-        "Remove obstacles in marriage and find suitable life partner",
-      duration: "3-4 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-5",
-      slug: "kaal-sarp-dosh-nivaran",
-      enabled: true,
-      title: "Kaal Sarp Dosh Nivaran",
-      description: "Powerful ritual to remove Kaal Sarp Dosha effects",
-      duration: "Full day",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-6",
-      slug: "kuber-pooja",
-      enabled: true,
-      title: "Kuber Pooja",
-      description:
-        "Worship Lord Kuber for financial growth and stability",
-      duration: "2-3 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-7",
-      slug: "navgrah-shanti-pooja",
-      enabled: true,
-      title: "Navgrah Shanti Pooja",
-      description: "Pacify all nine planets for overall well-being",
-      duration: "3-4 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-8",
-      slug: "hanuman-pooja",
-      enabled: true,
-      title: "Hanuman Pooja",
-      description:
-        "Seek Lord Hanuman's blessings for strength and courage",
-      duration: "2 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-9",
-      slug: "mangal-dosh-nivaran",
-      enabled: true,
-      title: "Mangal Dosh Nivaran",
-      description:
-        "Remove Mangal Dosha for harmonious married life",
-      duration: "3-4 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-    {
-      id: "pooja-10",
-      slug: "ganesha-pooja",
-      enabled: true,
-      title: "Ganesha Pooja",
-      description:
-        "Remove obstacles and seek blessings for new beginnings",
-      duration: "2 hours",
-      mode: "Online/Offline",
-      pill: "With Samagri",
-      image: "/assets/pooja-placeholder.svg",
-      ctaText: "Book Pooja",
-    },
-  ] as PoojaServiceItem[],
-
-  // --------------------------------------------------------------------------
-  // 9. VIDEO GALLERY SECTION (`id: "videos"`, 5 Removable Videos)
+  // 10. VIDEO GALLERY SECTION (`id: "videos"`, 5 Removable Videos)
   // --------------------------------------------------------------------------
   videoGallerySection: {
     id: "videos",
     navLabel: "Video Gallery",
     enabled: true,
     badge: "WATCH & LEARN",
-    heading: "Video Gallery",
-    subtitle: "Sacred rituals and spiritual teachings",
+    heading: "Sacred Ritual Gallery",
+    subtitle: "Vedic Anushthans, Pitru Tarpan, and Mantra Recitation Highlights",
   },
 
   videoGallery: [
     {
       id: "video-1",
       enabled: true,
-      title: "Bhagwat Moolpath",
-      category: "Pooja",
-      description: "Sacred recitation of Bhagwat Purana",
+      title: "Maha Rudrabhishek Vidhi",
+      category: "Dev Pooja",
+      description: "Sacred Panchamrit Snan and Rudri Path chanting for Lord Shiva",
       videoUrl: "/assets/videos/bhagwat-moolpath.mp4",
       posterUrl: "/assets/pooja-placeholder.svg",
     },
     {
       id: "video-2",
       enabled: true,
-      title: "Tripura Sundari Sahasranam",
-      category: "Mantra",
-      description: "1000 names of Goddess Tripura Sundari",
+      title: "Garud Puran Katha Discourse",
+      category: "Pitru Karya",
+      description: "Spiritual discourse on soul transition and liberation during mourning rites",
       videoUrl: "/assets/videos/tripura-sundari.mp4",
       posterUrl: "/assets/pooja-placeholder.svg",
     },
     {
       id: "video-3",
       enabled: true,
-      title: "Moolpath Pujanam",
-      category: "Pooja",
-      description: "Complete sacred ritual ceremony",
+      title: "Mahamrityunjaya Consecrated Havan",
+      category: "Havan & Mantra",
+      description: "Sacred fire sacrificial Ahutis for longevity and divine protection",
       videoUrl: "/assets/videos/moolpath-pujanam.mp4",
       posterUrl: "/assets/pooja-placeholder.svg",
     },
     {
       id: "video-4",
       enabled: true,
-      title: "Navgrah Shanti",
-      category: "Pooja",
-      description: "Nine planetary peace ritual",
+      title: "Pitru Tarpan & Pind Daan Vidhi",
+      category: "Pitru Karya",
+      description: "Sacred offerings of barley flour Pindas and sesame water at the ghat",
       videoUrl: "/assets/videos/navgrah-shanti.mp4",
       posterUrl: "/assets/pooja-placeholder.svg",
     },
     {
       id: "video-5",
       enabled: true,
-      title: "Kaal Sarp Dosh Nivaran",
-      category: "Remedies",
-      description: "Powerful remedy for Kaal Sarp Dosha",
+      title: "Navgrah Shanti Havan Anushthan",
+      category: "Dev Pooja",
+      description: "Pacification ritual for all nine planetary deities with authentic samidhas",
       videoUrl: "/assets/videos/kaal-sarp-dosh.mp4",
       posterUrl: "/assets/pooja-placeholder.svg",
     },
   ] as VideoGalleryItem[],
 
   // --------------------------------------------------------------------------
-  // 10. CONSULTATION OPTIONS SECTION (`id: "consultation"`, 3 Removable Cards)
+  // 11. CONSULTATION & ARRANGEMENT OPTIONS SECTION (`id: "consultation"`)
   // --------------------------------------------------------------------------
   consultationSection: {
     id: "consultation",
-    navLabel: "Consultation",
+    navLabel: "How We Assist",
     enabled: true,
-    badge: "HOW WE HELP",
-    heading: "Consultation Options",
-    subtitle: "Choose the consultation mode that works best for you",
+    badge: "COMPLETE DEDICATION",
+    heading: "Ritual Logistics & Guidance Options",
+    subtitle: "Flexible arrangements tailored to your family's needs and sacred venue",
   },
 
   consultationOptions: [
     {
-      id: "consult-1",
+      id: "opt-1",
       enabled: true,
-      title: "Online Consultation",
+      title: "At-Home & Residence Seva",
       description:
-        "Connect from anywhere through WhatsApp, Call, or Video consultation",
-      icon: "video",
-      bullets: [
-        "WhatsApp Audio/Video Call",
-        "Phone Consultation",
-        "Kundli Sent on Email",
-        "Convenient & Flexible",
-      ],
-    },
-    {
-      id: "consult-2",
-      enabled: true,
-      title: "Offline Consultation",
-      description:
-        "In-person consultation for detailed analysis and spiritual guidance",
+        "Pandit Ji travels to your home with complete authentic Samagri, Havan Kund, and sacred utensils for seamless ceremonies.",
       icon: "users",
       bullets: [
-        "Face-to-Face Meeting",
-        "Detailed Chart Analysis",
-        "Personalized Remedies",
-        "Sacred Rituals Available",
+        "Complete Pure Samagri Included",
+        "Havan Kund & Brass Pooja Utensils",
+        "Clear Step-by-Step Family Guidance",
+        "Punctual & Devotional Execution",
       ],
     },
     {
-      id: "consult-3",
+      id: "opt-2",
       enabled: true,
-      title: "Confidential & Professional",
+      title: "Ghat, Temple & Tirth Seva",
       description:
-        "All consultations are completely confidential with professional guidance",
+        "Assistance and complete Vidhi at Crematoriums, holy river Ghats, Temples, or sacred Tirth locations (Haridwar, Gaya, etc.).",
+      icon: "droplet",
+      bullets: [
+        "Antim Sanskaar & Asthi Visarjan",
+        "Pind Daan & Tripindi Shraadh",
+        "Priority Ritual Space Coordination",
+        "Proper Shastric Muhurat Alignment",
+      ],
+    },
+    {
+      id: "opt-3",
+      enabled: true,
+      title: "Urgent Guidance & Online Sankalp",
+      description:
+        "Immediate telephone or WhatsApp guidance for urgent rites, Tithi calculation, or live online sankalp ceremonies for families abroad.",
       icon: "shield",
       bullets: [
-        "100% Confidential",
-        "Professional Approach",
-        "Ethical Guidance",
-        "Result-Oriented Solutions",
+        "Immediate Bereavement Support",
+        "Tithi, Shuddhi & Pagdi Scheduling",
+        "Live Video Stream Sankalp",
+        "100% Confidential & Compassionate",
       ],
     },
   ] as ConsultationOptionItem[],
 
   // --------------------------------------------------------------------------
-  // 11. FINAL CTA BANNER SECTION
+  // 12. FINAL CTA BANNER SECTION
   // --------------------------------------------------------------------------
   finalCta: {
     enabled: true,
-    badge: "READY TO TRANSFORM YOUR LIFE?",
-    heading: "Start Your Spiritual Journey Today",
+    badge: "REVERENCE • PURITY • VEDIC VIDHI",
+    heading: "Book Pandit Ji for Your Sacred Ceremony",
     description:
-      "Take the first step towards clarity, prosperity, and peace. Our expert Vedic astrology guidance is just a click away. Book your appointment now and experience the power of ancient wisdom.",
+      "Whether seeking auspicious divine blessings for your family or performing solemn ancestral rites with dignified Vedic perfection, we are here to guide you with complete dedication and pure Samagri.",
     buttons: {
-      consultNow: "Consult Now",
-      bookAppointment: "Book Appointment",
-      whatsappUs: "WhatsApp Us",
+      deityPooja: "Explore Deity Poojas",
+      shraadhSanskaar: "Shraadh & Sanskaar",
+      whatsappUs: "Connect on WhatsApp",
     },
   },
 
   // --------------------------------------------------------------------------
-  // 12. MULTI-STEP BOOKING ENGINE CONFIGURATION (`/book-consultation`)
+  // 13. MULTI-STEP BOOKING ENGINE CONFIGURATION (`/book-consultation`)
   // --------------------------------------------------------------------------
   booking: {
-    badge: "Expert Vedic Astrologer",
-    heading: "BOOK YOUR CONSULTATION",
+    badge: "Vedic Pandit & Karamkand Services",
+    heading: "BOOK YOUR SACRED CEREMONY",
     subheading:
-      "Complete the 3-step sacred appointment request below for personalized Vedic guidance",
-    consultationFee: "₹199.99",
-    consultationTypes: [
+      "Fill in the 3-step appointment details below to schedule your Deity Pooja or Shraadh Sanskaar with Pandit Ji",
+    categories: [
       {
-        id: "Online",
-        title: "Online",
-        subtitle: "Video, Audio, or WhatsApp from anywhere in the world",
+        id: "pooja",
+        title: "Deity Pooja & Auspicious Ritual",
+        subtitle: "Ganesh, Lakshmi, Shiva, Griha Pravesh, Havan & Jaap",
+        icon: "flame",
       },
       {
-        id: "Offline",
-        title: "Offline",
-        subtitle: "In-person sacred consultation & detailed chart reading",
+        id: "shraadh",
+        title: "Shraadh & After-Death Sanskaar",
+        subtitle: "Antim Sanskaar, Terahvin, Pind Daan, Barsi & Pitru Shanti",
+        icon: "droplet",
       },
     ],
-    consultationModes: [
-      "Video Call",
-      "Phone Call",
-      "WhatsApp Chat",
-      "In-Person Visit",
+    samagriOptions: [
+      "Pandit Ji will bring Complete Samagri (Recommended)",
+      "We will arrange Samagri (Send List)",
+    ],
+    venues: [
+      "At Our Residence / Home",
+      "Temple / Ghat / Crematorium / Hall",
+      "Online Sankalp / Remote Guidance",
     ],
     timeSlots: [
-      "9:00 AM - 11:00 AM",
-      "11:00 AM - 1:00 PM",
-      "1:00 PM - 3:00 PM",
-      "3:00 PM - 5:00 PM",
-      "5:00 PM - 7:00 PM",
-      "7:00 PM - 9:00 PM",
+      "Morning (Brahma Muhurat / 6:00 AM - 9:00 AM)",
+      "Mid-Morning (9:00 AM - 12:00 PM)",
+      "Afternoon (Aparahna / 12:00 PM - 3:00 PM for Shraadh)",
+      "Evening (5:00 PM - 8:00 PM)",
+      "Urgent / Immediate Assistance",
     ],
     whyChooseUs: [
-      "Expert Vedic Astrologer",
-      "1000+ Consultations",
-      "Certified Expert",
-      "Confidential & Secure",
+      "Rigveda & Yajurveda Certified Vidhi",
+      "Both Dev & Pitru Karya Specialization",
+      "Complete Pooja Samagri Provided",
+      "Compassionate & Punctual Guidance",
     ],
   },
 };
 
 // ============================================================================
-// HELPER FUNCTIONS FOR MODULAR FILTERING & WHATSAPP / PHONE LINKS
+// HELPER FUNCTIONS FOR FILTERING, NAV, AND WHATSAPP PAYLOADS
 // ============================================================================
 
-export function getEnabledAstrologyServices(): AstrologyServiceItem[] {
-  return (siteData.astrologyServices || []).filter((item) => item.enabled);
+export function getEnabledServiceGateways(): ServiceGatewayItem[] {
+  return (siteData.serviceGateways || []).filter((item) => item.enabled);
 }
 
-export function getEnabledPoojaServices(): PoojaServiceItem[] {
-  return (siteData.poojaServices || []).filter((item) => item.enabled);
+export function getEnabledDeityPoojas(): DeityPoojaItem[] {
+  return (siteData.deityPoojaServices || []).filter((item) => item.enabled);
+}
+
+export function getEnabledShraadhSanskaars(): ShraadhSanskaarItem[] {
+  return (siteData.shraadhSanskaarServices || []).filter((item) => item.enabled);
 }
 
 export function getEnabledVideos(): VideoGalleryItem[] {
@@ -590,24 +770,6 @@ export function getEnabledVideos(): VideoGalleryItem[] {
 
 export function getEnabledConsultationOptions(): ConsultationOptionItem[] {
   return (siteData.consultationOptions || []).filter((item) => item.enabled);
-}
-
-export function getAllEnabledBookableServices(): {
-  label: string;
-  slug: string;
-  category: "Astrology Service" | "Pooja Service";
-}[] {
-  const astrology = getEnabledAstrologyServices().map((s) => ({
-    label: s.title,
-    slug: s.slug,
-    category: "Astrology Service" as const,
-  }));
-  const pooja = getEnabledPoojaServices().map((p) => ({
-    label: p.title,
-    slug: p.slug,
-    category: "Pooja Service" as const,
-  }));
-  return [...astrology, ...pooja];
 }
 
 export function buildWhatsAppUrl(customMessage?: string): string {
@@ -622,41 +784,18 @@ export function buildWhatsAppUrl(customMessage?: string): string {
 
 export function getNavLinks() {
   const links: { label: string; href: string }[] = [];
+  links.push({ label: "Home", href: "/" });
   if (siteData.about.enabled) {
-    links.push({ label: siteData.about.navLabel, href: `/#${siteData.about.id}` });
+    links.push({ label: siteData.about.navLabel, href: "/#about" });
   }
-  if (siteData.ceremony.enabled) {
-    links.push({
-      label: siteData.ceremony.navLabel,
-      href: `/#${siteData.ceremony.id}`,
-    });
+  if (siteData.deityPoojaSection.enabled && getEnabledDeityPoojas().length > 0) {
+    links.push({ label: "Deity Poojas", href: "/pooja-services" });
   }
-  if (siteData.servicesSection.enabled && getEnabledAstrologyServices().length > 0) {
-    links.push({
-      label: siteData.servicesSection.navLabel,
-      href: `/#${siteData.servicesSection.id}`,
-    });
-  }
-  if (siteData.poojaSection.enabled && getEnabledPoojaServices().length > 0) {
-    links.push({
-      label: siteData.poojaSection.navLabel,
-      href: `/#${siteData.poojaSection.id}`,
-    });
+  if (siteData.shraadhSanskaarSection.enabled && getEnabledShraadhSanskaars().length > 0) {
+    links.push({ label: "Shraadh & Sanskaar", href: "/shraadh-sanskaar" });
   }
   if (siteData.videoGallerySection.enabled && getEnabledVideos().length > 0) {
-    links.push({
-      label: siteData.videoGallerySection.navLabel,
-      href: `/#${siteData.videoGallerySection.id}`,
-    });
-  }
-  if (
-    siteData.consultationSection.enabled &&
-    getEnabledConsultationOptions().length > 0
-  ) {
-    links.push({
-      label: siteData.consultationSection.navLabel,
-      href: `/#${siteData.consultationSection.id}`,
-    });
+    links.push({ label: "Sacred Videos", href: "/#videos" });
   }
   return links;
 }

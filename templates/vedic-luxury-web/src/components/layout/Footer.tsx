@@ -9,29 +9,29 @@ import {
   MessageCircle,
   Calendar,
   ShieldCheck,
+  Flame,
+  Droplets,
 } from "lucide-react";
 import {
   siteData,
-  getNavLinks,
-  getEnabledAstrologyServices,
-  getEnabledPoojaServices,
+  getEnabledDeityPoojas,
+  getEnabledShraadhSanskaars,
   buildWhatsAppUrl,
 } from "@/config/siteData";
 
 export function Footer() {
-  const navLinks = getNavLinks();
-  const astrologyServices = getEnabledAstrologyServices().slice(0, 6);
-  const poojaServices = getEnabledPoojaServices().slice(0, 6);
+  const deityPoojas = getEnabledDeityPoojas().slice(0, 4);
+  const shraadhSanskaars = getEnabledShraadhSanskaars().slice(0, 4);
   const hasPhone = Boolean(siteData.contact.phoneNumber?.trim());
 
   return (
     <footer className="relative border-t border-[var(--border-gold)] bg-[var(--bg-secondary)] pt-16 pb-10 overflow-hidden">
-      {/* Subtle radial glow */}
+      {/* Radial glow */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-gold-500/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[var(--border-gold)]">
-          {/* Column 1: Brand Identity */}
+          {/* Column 1: Brand & Sanskrit Vidhi */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full border border-gold-400/60 bg-gold-500/15 flex items-center justify-center">
@@ -47,76 +47,82 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-              {siteData.brand.tagline}. Bridging sacred Vedic traditions with
-              personalized modern guidance for clarity, harmony, and spiritual
-              prosperity.
+              {siteData.brand.tagline}
             </p>
             <div className="inline-flex items-center gap-2 text-xs text-gold-400 font-medium pt-1">
               <ShieldCheck className="w-4 h-4" />
-              <span>100% Confidential & Authentic Vedic Guidance</span>
+              <span>Rigveda & Yajurveda Shastric Vidhi Assured</span>
             </div>
           </div>
 
-          {/* Column 2: Quick Navigation */}
+          {/* Column 2: Deity Poojas Highlights */}
           <div>
-            <h3 className="font-serif text-lg font-semibold text-gold-gradient mb-4 tracking-wide">
-              Sacred Navigation
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Flame className="w-4 h-4 text-gold-400" />
+              <h3 className="font-serif text-lg font-semibold text-gold-gradient tracking-wide">
+                Deity Poojas & Havans
+              </h3>
+            </div>
             <ul className="space-y-2.5 text-sm">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+              {deityPoojas.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={`/book-consultation?category=pooja&service=${encodeURIComponent(
+                      item.title
+                    )}`}
                     className="text-[var(--text-secondary)] hover:text-gold-400 transition-colors"
                   >
-                    {link.label}
-                  </a>
+                    {item.title}
+                  </Link>
                 </li>
               ))}
               <li>
                 <Link
-                  href="/book-consultation"
-                  className="text-gold-400 hover:underline font-medium"
+                  href="/pooja-services"
+                  className="text-xs uppercase tracking-wider text-gold-400 font-bold hover:underline inline-flex items-center gap-1 mt-1"
                 >
-                  Book Consultation
+                  View All Deity Poojas →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Astrology & Pooja Highlights */}
+          {/* Column 3: Shraadh & Sanskaar Highlights */}
           <div>
-            <h3 className="font-serif text-lg font-semibold text-gold-gradient mb-4 tracking-wide">
-              Vedic & Pooja Services
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Droplets className="w-4 h-4 text-amber-300" />
+              <h3 className="font-serif text-lg font-semibold text-gold-gradient tracking-wide">
+                Shraadh & Pitru Karya
+              </h3>
+            </div>
             <ul className="space-y-2.5 text-sm">
-              {astrologyServices.slice(0, 3).map((item) => (
+              {shraadhSanskaars.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={`/book-consultation?service=${item.slug}`}
-                    className="text-[var(--text-secondary)] hover:text-gold-400 transition-colors"
+                    href={`/book-consultation?category=shraadh&service=${encodeURIComponent(
+                      item.title
+                    )}`}
+                    className="text-[var(--text-secondary)] hover:text-amber-300 transition-colors"
                   >
                     {item.title}
                   </Link>
                 </li>
               ))}
-              {poojaServices.slice(0, 3).map((item) => (
-                <li key={item.id}>
-                  <Link
-                    href={`/book-consultation?service=${item.slug}`}
-                    className="text-[var(--text-secondary)] hover:text-gold-400 transition-colors"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/shraadh-sanskaar"
+                  className="text-xs uppercase tracking-wider text-amber-300 font-bold hover:underline inline-flex items-center gap-1 mt-1"
+                >
+                  View All Shraadh Rites →
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4: Direct Concierge & Contact */}
+          {/* Column 4: Contact & Urgent Guidance */}
           <div className="space-y-4">
             <h3 className="font-serif text-lg font-semibold text-gold-gradient mb-4 tracking-wide">
-              Connect & Consult
+              Direct Seva Desk
             </h3>
 
             <div className="flex items-start gap-3 text-sm text-[var(--text-secondary)]">
@@ -147,7 +153,7 @@ export function Footer() {
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full btn-gold-primary text-xs font-semibold"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Book Appointment Online</span>
+                <span>Book Ceremony Online</span>
               </Link>
               <a
                 href={buildWhatsAppUrl()}
@@ -156,7 +162,7 @@ export function Footer() {
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full btn-gold-outline text-xs font-semibold"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
-                <span>WhatsApp Concierge</span>
+                <span>WhatsApp Pandit Ji</span>
               </a>
             </div>
           </div>
@@ -169,7 +175,7 @@ export function Footer() {
             Reserved.
           </p>
           <p className="font-devanagari text-gold-400/80">
-            ॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥
+            ॥ ॐ शान्तिः शान्तिः शान्तिः ॥
           </p>
         </div>
       </div>
