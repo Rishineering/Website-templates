@@ -27,23 +27,23 @@ html.dark {
 
 /* SACRED SAFFRON / KESARIYA MODE (Light Mode) */
 html.light {
-  --bg-primary: #ffe4c4;
-  --bg-secondary: #ffd4a3;
-  --bg-card: rgba(255, 248, 238, 0.92);
-  --bg-card-solid: #fff8ee;
-  --bg-card-elevated: rgba(255, 243, 224, 0.96);
-  --bg-glass-nav: rgba(255, 228, 196, 0.9);
-  --text-primary: #2a0a03;
-  --text-secondary: #5c1d09;
-  --text-muted: #8c3814;
-  --border-gold: rgba(194, 65, 12, 0.34);
-  --border-gold-bright: rgba(180, 45, 8, 0.78);
-  --accent-gold: #b43c08;
-  --accent-gold-light: #d9530f;
-  --accent-crimson: #7f1d1d;
+  --bg-primary: #ffbe6b;
+  --bg-secondary: #ffab47;
+  --bg-card: rgba(255, 246, 232, 0.94);
+  --bg-card-solid: #fff5e6;
+  --bg-card-elevated: rgba(255, 238, 212, 0.97);
+  --bg-glass-nav: rgba(255, 180, 84, 0.92);
+  --text-primary: #240702;
+  --text-secondary: #4d1405;
+  --text-muted: #7c280c;
+  --border-gold: rgba(168, 42, 8, 0.38);
+  --border-gold-bright: rgba(145, 30, 5, 0.85);
+  --accent-gold: #9a2408;
+  --accent-gold-light: #c2410c;
+  --accent-crimson: #6b1109;
   --card-spotlight: radial-gradient(
     550px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
-    rgba(234, 88, 12, 0.18),
+    rgba(234, 88, 12, 0.22),
     transparent 65%
   );
 }
@@ -69,15 +69,15 @@ html.light {
   html.light body {
     background-image: radial-gradient(
         circle at 18% 12%,
-        rgba(251, 146, 60, 0.28) 0%,
+        rgba(255, 122, 0, 0.42) 0%,
         transparent 48%
       ),
       radial-gradient(
         circle at 82% 35%,
-        rgba(234, 88, 12, 0.2) 0%,
+        rgba(234, 88, 12, 0.32) 0%,
         transparent 52%
       ),
-      linear-gradient(180deg, #ffdba8 0%, #ffe8c8 45%, #ffd8a6 100%);
+      linear-gradient(180deg, #ffa73b 0%, #ffc878 48%, #ffb347 100%);
     background-attachment: fixed;
   }
 

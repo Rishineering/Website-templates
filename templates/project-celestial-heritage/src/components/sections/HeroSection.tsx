@@ -18,34 +18,59 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 md:py-28">
-      {/* Background Fallback Celestial SVG & Optional Ritual Video */}
+      {/* Background Layer: Dark Obsidian Mandala in Dark Mode vs Radiant Saffron-Orange Sunburst in Light Mode */}
       <div className="absolute inset-0 z-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={siteData.hero.fallbackBgSvg}
-          alt="Celestial Vedic Mandala"
-          className="w-full h-full object-cover opacity-50 dark:opacity-75"
-        />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={siteData.hero.fallbackBgSvg}
-          className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-lighten pointer-events-none"
-        >
-          <source src={siteData.hero.videoSrc} type="video/mp4" />
-        </video>
-
-        {/* Rotating Sacred Astrolabe Ring Overlay */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-          <div className="w-[620px] h-[620px] sm:w-[820px] sm:h-[820px] rounded-full border border-gold-500/15 animate-spin-slow flex items-center justify-center">
-            <div className="w-[460px] h-[460px] sm:w-[640px] sm:h-[640px] rounded-full border border-dashed border-gold-400/20 animate-spin-reverse-slow" />
-          </div>
+        {/* DARK MODE BACKGROUND */}
+        <div className="hidden dark:block absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={siteData.hero.fallbackBgSvg}
+            alt="Celestial Vedic Mandala"
+            className="w-full h-full object-cover opacity-75"
+          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={siteData.hero.fallbackBgSvg}
+            className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-lighten pointer-events-none"
+          >
+            <source src={siteData.hero.videoSrc} type="video/mp4" />
+          </video>
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(7,6,9,0.82) 0%, rgba(7,6,9,0.58) 50%, rgba(7,6,9,1) 100%)",
+            }}
+          />
         </div>
 
-        {/* Vignette Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/60 to-[var(--bg-primary)]" />
+        {/* LIGHT / SACRED SAFFRON MODE BACKGROUND */}
+        <div
+          className="block dark:hidden absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 28%, rgba(255, 140, 0, 0.45) 0%, rgba(255, 167, 38, 0.28) 42%, rgba(255, 204, 128, 0.65) 100%), linear-gradient(180deg, #FF9E2C 0%, #FFBE6B 48%, #FFD699 100%)",
+          }}
+        >
+          {/* Subtle Saffron Surya Rays & Sacred Geometry */}
+          <div
+            className="absolute inset-0 opacity-35"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 50% 42%, rgba(180, 45, 8, 0.16) 0%, transparent 60%)",
+            }}
+          />
+        </div>
+
+        {/* Rotating Sacred Astrolabe Ring Overlay (Visible in both modes) */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+          <div className="w-[620px] h-[620px] sm:w-[820px] sm:h-[820px] rounded-full border border-[#B43C08]/25 dark:border-gold-500/15 animate-spin-slow flex items-center justify-center">
+            <div className="w-[460px] h-[460px] sm:w-[640px] sm:h-[640px] rounded-full border border-dashed border-[#B43C08]/30 dark:border-gold-400/20 animate-spin-reverse-slow" />
+          </div>
+        </div>
       </div>
 
       {/* Main Hero Content */}
@@ -55,10 +80,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-gold-400/50 bg-gold-500/10 backdrop-blur-md mb-6 shadow-gold-glow"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#9A2408]/45 dark:border-gold-400/50 bg-[#FFF5E6]/85 dark:bg-gold-500/10 backdrop-blur-md mb-6 shadow-gold-glow"
         >
           <Sparkles className="w-4 h-4 text-gold-400" />
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-gold-300 dark:text-gold-200">
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#7A1805] dark:text-gold-200">
             {siteData.hero.badge}
           </span>
         </motion.div>
@@ -68,7 +93,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-devanagari font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-gold-400 mb-3 tracking-wide"
+          className="font-devanagari font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#6E1406] dark:text-gold-400 mb-3 tracking-wide"
         >
           {siteData.hero.subheadline}
         </motion.div>
@@ -90,9 +115,9 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="flex items-center justify-center gap-3 mb-6"
         >
-          <span className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent to-gold-400" />
+          <span className="h-[1.5px] w-16 sm:w-28 bg-gradient-to-r from-transparent to-[#9A2408] dark:to-gold-400" />
           <Flame className="w-5 h-5 text-gold-400 animate-pulse" />
-          <span className="h-[1px] w-16 sm:w-28 bg-gradient-to-l from-transparent to-gold-400" />
+          <span className="h-[1.5px] w-16 sm:w-28 bg-gradient-to-l from-transparent to-[#9A2408] dark:to-gold-400" />
         </motion.div>
 
         {/* Tagline */}
@@ -100,7 +125,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-[var(--text-secondary)] font-normal leading-relaxed mb-9"
+          className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-[var(--text-secondary)] font-medium leading-relaxed mb-9"
         >
           {siteData.hero.tagline}
         </motion.p>
@@ -115,7 +140,7 @@ export function HeroSection() {
           {siteData.hero.trustPills.map((pill) => (
             <div
               key={pill}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-card)] border border-[var(--border-gold)] backdrop-blur-md text-xs sm:text-sm font-medium text-[var(--text-primary)] shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-card)] border border-[var(--border-gold)] backdrop-blur-md text-xs sm:text-sm font-semibold text-[var(--text-primary)] shadow-sm"
             >
               <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
               <span>{pill}</span>
@@ -150,9 +175,9 @@ export function HeroSection() {
             href={buildWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full border border-emerald-500/40 bg-emerald-950/30 hover:bg-emerald-900/40 text-emerald-300 dark:text-emerald-200 text-sm sm:text-base font-semibold transition-all hover:-translate-y-0.5"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full border border-emerald-700/60 dark:border-emerald-500/40 bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40 text-white dark:text-emerald-200 text-sm sm:text-base font-semibold transition-all hover:-translate-y-0.5 shadow-md"
           >
-            <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <MessageCircle className="w-4 h-4 text-white dark:text-emerald-400" />
             <span>{siteData.hero.ctas.whatsapp}</span>
           </a>
         </motion.div>
