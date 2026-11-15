@@ -1,0 +1,9 @@
+:HL["/Website-templates/pandit-portfolio/_next/static/chunks/0dngu6w8al3a0.css","style"]
+:HL["/Website-templates/pandit-portfolio/_next/static/media/3679aa72a9b9035f-s.p.0h6ig86gwutp4.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Website-templates/pandit-portfolio/_next/static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Website-templates/pandit-portfolio/_next/static/media/d8aeca813a9ab546-s.p.18rizl4rsrl42.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Website-templates/pandit-portfolio/_next/static/media/f462257512209772-s.p.39pl-v7c3qrze.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"id","t":"d","k":"mantra","s":[]},"h":96,"c":"$Q3"}]]
+1:[["children",{"s":"offerings","h":64,"c":"$Q2"}]]
+0:{"b":"QrGOv28Pd2zCHZtufYheb","t":{"t":{"s":"","h":16,"c":"$Q1"}}}

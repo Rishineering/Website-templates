@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" fill="none">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#311018"/>
+      <stop offset="50%" stop-color="#6B210B"/>
+      <stop offset="100%" stop-color="#240804"/>
+    </linearGradient>
+    <linearGradient id="gold5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg5)"/>
+  <rect x="18" y="18" width="764" height="384" rx="18" stroke="url(#gold5)" stroke-width="1.2" stroke-opacity="0.45"/>
+
+  <!-- Sacred Japa Mala & Crescent Chandra -->
+  <g transform="translate(400, 172)">
+    <circle r="86" stroke="url(#gold5)" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+    <circle cx="0" cy="86" r="10" fill="url(#gold5)"/>
+    <path d="M18 -36 A42 42 0 1 0 18 36 A32 32 0 1 1 18 -36 Z" fill="url(#gold5)" opacity="0.9"/>
+  </g>
+
+  <g transform="translate(400, 348)">
+    <rect x="-155" y="-24" width="310" height="46" rx="23" fill="#1A0602" fill-opacity="0.9" stroke="url(#gold5)" stroke-width="1.4"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#FFF7ED" text-anchor="middle" letter-spacing="1.8">
+      YOUR OFFERING PHOTO HERE
+    </text>
+    <text x="0" y="14" font-family="Georgia, serif" font-size="10.5" fill="#FDBA74" text-anchor="middle">
+      मंत्र दीक्षा एवं व्यक्तिगत साधना
+    </text>
+  </g>
+</svg>
