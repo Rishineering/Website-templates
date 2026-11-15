@@ -62,11 +62,14 @@ export function VideoGallerySection() {
                   <span>{video.category}</span>
                 </div>
 
-                {/* Center Gold Play Button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full btn-gold-primary flex items-center justify-center shadow-gold-glow group-hover:scale-110 transition-transform">
-                    <Play className="w-6 h-6 text-obsidian fill-obsidian ml-0.5" />
+                {/* Center Gold Play Button & Placeholder Notice */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                  <div className="w-13 h-13 rounded-full btn-gold-primary flex items-center justify-center shadow-gold-glow group-hover:scale-110 transition-transform mb-2">
+                    <Play className="w-5 h-5 text-obsidian fill-obsidian ml-0.5" />
                   </div>
+                  <span className="px-3 py-1 rounded-full bg-black/80 border border-gold-400/80 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-md">
+                    YOUR VIDEO HERE
+                  </span>
                 </div>
               </div>
 

@@ -144,9 +144,14 @@ export function SacredCeremonySection() {
               </div>
 
               {!isPlaying && (
-                <span className="mt-4 px-4 py-1.5 rounded-full bg-black/70 border border-gold-400/40 text-xs uppercase tracking-[0.22em] text-gold-200 font-semibold">
-                  Click to Experience Sacred Ceremony
-                </span>
+                <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
+                  <span className="px-5 py-2 rounded-full bg-black/85 border border-gold-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white shadow-gold-glow">
+                    YOUR VIDEO HERE • आपका वीडियो यहाँ लगेगा
+                  </span>
+                  <span className="text-[11px] font-semibold text-gold-300/90 tracking-wide bg-black/60 px-3 py-1 rounded-full">
+                    Click to play preview | Drop sacred ceremony video in assets
+                  </span>
+                </div>
               )}
             </div>
 

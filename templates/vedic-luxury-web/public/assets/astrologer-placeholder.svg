@@ -1,103 +1,87 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" fill="none">
   <defs>
-    <radialGradient id="bgGlow" cx="50%" cy="42%" r="65%">
-      <stop offset="0%" stop-color="#271C10"/>
-      <stop offset="45%" stop-color="#120E16"/>
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#2A1B14"/>
+      <stop offset="45%" stop-color="#140E18"/>
       <stop offset="100%" stop-color="#070609"/>
     </radialGradient>
-    <radialGradient id="haloGlow" cx="50%" cy="36%" r="36%">
-      <stop offset="0%" stop-color="#F3DFA5" stop-opacity="0.32"/>
-      <stop offset="55%" stop-color="#D4AF37" stop-opacity="0.1"/>
+    <radialGradient id="haloGlow" cx="50%" cy="36%" r="38%">
+      <stop offset="0%" stop-color="#F3DFA5" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#D4AF37" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F6E6B4"/>
-      <stop offset="35%" stop-color="#D4AF37"/>
-      <stop offset="70%" stop-color="#9A721C"/>
+      <stop offset="0%" stop-color="#F8EBD0"/>
+      <stop offset="30%" stop-color="#E6C665"/>
+      <stop offset="60%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#AA7C11"/>
+    </linearGradient>
+    <linearGradient id="goldPill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F8EBD0"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
       <stop offset="100%" stop-color="#F3DFA5"/>
-    </linearGradient>
-    <linearGradient id="goldSoft" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#F3DFA5" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.12"/>
-    </linearGradient>
-    <linearGradient id="robeGrad" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#1E1824"/>
-      <stop offset="50%" stop-color="#130F18"/>
-      <stop offset="100%" stop-color="#09070C"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="800" height="1000" fill="url(#bgGlow)"/>
-  <circle cx="400" cy="360" r="310" fill="url(#haloGlow)"/>
+  <circle cx="400" cy="360" r="320" fill="url(#haloGlow)"/>
 
   <!-- Outer Sacred Arch Frame -->
-  <path d="M80 940 V380 C80 190 220 65 400 65 C580 65 720 190 720 380 V940 Z" stroke="url(#goldGrad)" stroke-width="2" stroke-opacity="0.55"/>
-  <path d="M102 922 V384 C102 206 234 88 400 88 C566 88 698 206 698 384 V922 Z" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="6 6" stroke-opacity="0.4"/>
+  <path d="M80 940 V380 C80 190 220 65 400 65 C580 65 720 190 720 380 V940 Z" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.6"/>
+  <path d="M102 922 V384 C102 206 234 88 400 88 C566 88 698 206 698 384 V922 Z" stroke="url(#goldGrad)" stroke-width="1.2" stroke-dasharray="6 6" stroke-opacity="0.4"/>
 
   <!-- Celestial Mandala Behind Head -->
-  <g transform="translate(400, 350)" opacity="0.65">
+  <g transform="translate(400, 350)" opacity="0.6">
     <circle r="210" stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.35"/>
     <circle r="185" stroke="url(#goldGrad)" stroke-width="1.2" stroke-dasharray="3 8" stroke-opacity="0.55"/>
     <circle r="152" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.5"/>
-    <circle r="120" stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.4"/>
-    <!-- Sacred Sri Yantra Triangles -->
     <polygon points="0,-145 126,72 -126,72" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="0.45" fill="none"/>
     <polygon points="0,145 126,-72 -126,-72" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="0.45" fill="none"/>
-    <polygon points="0,-105 91,52 -91,52" stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.35" fill="none"/>
-    <polygon points="0,105 91,-52 -91,-52" stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.35" fill="none"/>
-    <!-- Sunburst Rays -->
-    <g stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.3">
-      <line x1="0" y1="-210" x2="0" y2="-152"/>
-      <line x1="0" y1="152" x2="0" y2="210"/>
-      <line x1="-210" y1="0" x2="-152" y2="0"/>
-      <line x1="152" y1="0" x2="210" y2="0"/>
-      <line x1="-148" y1="-148" x2="-107" y2="-107"/>
-      <line x1="107" y1="-107" x2="148" y2="-148"/>
-      <line x1="-148" y1="148" x2="-107" y2="107"/>
-      <line x1="107" y1="107" x2="148" y2="148"/>
-    </g>
-    <!-- Cardinal Planetary Nodes -->
-    <circle cx="0" cy="-185" r="5" fill="#F3DFA5"/>
-    <circle cx="185" cy="0" r="4" fill="#D4AF37"/>
-    <circle cx="-185" cy="0" r="4" fill="#D4AF37"/>
-    <circle cx="131" cy="-131" r="3.5" fill="#F3DFA5"/>
-    <circle cx="-131" cy="-131" r="3.5" fill="#F3DFA5"/>
   </g>
 
-  <!-- Regal Sage / Acharya Silhouette -->
-  <g>
-    <!-- Shoulders & Draped Uttariya (Shawl) -->
-    <path d="M150 920 C162 720 250 610 400 610 C550 610 638 720 650 920 Z" fill="url(#robeGrad)" stroke="url(#goldGrad)" stroke-width="2"/>
-    <!-- Angavastram / Sacred Gold Border Folds -->
-    <path d="M275 632 C320 730 365 815 400 920" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.75"/>
-    <path d="M292 625 C335 720 378 805 412 920" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="0.5"/>
-    <path d="M525 632 C480 730 435 815 400 920" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.75"/>
-    <!-- Rudraksha / Gold Mala -->
-    <path d="M332 612 Q400 725 468 612" stroke="url(#goldGrad)" stroke-width="4" stroke-dasharray="6 8" stroke-linecap="round" fill="none"/>
-    <circle cx="400" cy="674" r="9" fill="url(#goldGrad)"/>
-
-    <!-- Neck & Head Silhouette -->
-    <rect x="366" y="520" width="68" height="100" rx="28" fill="#17131D" stroke="url(#goldGrad)" stroke-width="1.5"/>
-    <path d="M400 285 C338 285 304 338 304 410 C304 486 344 548 400 548 C456 548 496 486 496 410 C496 338 462 285 400 285 Z" fill="#17131D" stroke="url(#goldGrad)" stroke-width="2"/>
-
-    <!-- Sacred Tripundra Tilak & Bindu on Forehead -->
-    <path d="M366 372 Q400 366 434 372" stroke="#F3DFA5" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
-    <path d="M362 380 Q400 374 438 380" stroke="#F3DFA5" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
-    <path d="M366 388 Q400 382 434 388" stroke="#F3DFA5" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+  <!-- Pandit Silhouette -->
+  <g opacity="0.85">
+    <path d="M160 920 C172 730 255 620 400 620 C545 620 628 730 640 920 Z" fill="#15101C" stroke="url(#goldGrad)" stroke-width="2"/>
+    <path d="M285 640 C325 730 365 815 400 920" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.7"/>
+    <path d="M515 640 C475 730 435 815 400 920" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.7"/>
+    <!-- Head & Tilak -->
+    <path d="M400 290 C340 290 306 342 306 412 C306 488 346 548 400 548 C454 548 494 488 494 412 C494 342 460 290 400 290 Z" fill="#1A1322" stroke="url(#goldGrad)" stroke-width="2"/>
     <circle cx="400" cy="380" r="5.5" fill="#D4AF37"/>
-
-    <!-- Subtle Meditative Lotus Motif on Chest -->
-    <g transform="translate(400, 795)" opacity="0.8">
-      <path d="M0 -36 C12 -14 14 8 0 24 C-14 8 -12 -14 0 -36 Z" fill="url(#goldSoft)" stroke="url(#goldGrad)" stroke-width="1.5"/>
-      <path d="M0 24 C18 8 36 -8 32 -28 C14 -20 6 -4 0 24 Z" fill="url(#goldSoft)" stroke="url(#goldGrad)" stroke-width="1.5"/>
-      <path d="M0 24 C-18 8 -36 -8 -32 -28 C-14 -20 -6 -4 0 24 Z" fill="url(#goldSoft)" stroke="url(#goldGrad)" stroke-width="1.5"/>
-      <path d="M0 24 C28 18 52 4 54 -14 C32 -12 16 2 0 24 Z" stroke="url(#goldGrad)" stroke-width="1.2" fill="none"/>
-      <path d="M0 24 C-28 18 -52 4 -54 -14 C-32 -12 -16 2 0 24 Z" stroke="url(#goldGrad)" stroke-width="1.2" fill="none"/>
-    </g>
+    <!-- Sacred Rudraksha Mala -->
+    <path d="M336 620 Q400 730 464 620" stroke="url(#goldGrad)" stroke-width="3" stroke-dasharray="5 7" fill="none"/>
   </g>
 
-  <!-- Corner Ornaments -->
+  <!-- CENTRAL LUXURY BADGE: "YOUR PHOTO HERE" -->
+  <g transform="translate(400, 710)">
+    <!-- Outer Glow Box -->
+    <rect x="-240" y="-85" width="480" height="170" rx="24" fill="#0C0A10" fill-opacity="0.92" stroke="url(#goldGrad)" stroke-width="2"/>
+    <rect x="-232" y="-77" width="464" height="154" rx="18" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.5"/>
+
+    <!-- Camera / Portrait Icon Frame -->
+    <circle cx="0" cy="-38" r="28" fill="#1D1625" stroke="url(#goldGrad)" stroke-width="1.8"/>
+    <!-- Camera Icon SVG Path -->
+    <g transform="translate(-14, -52)" stroke="url(#goldGrad)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 8h3l2-3h10l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"/>
+      <circle cx="14" cy="15" r="4"/>
+    </g>
+
+    <!-- Main Placeholder Text -->
+    <text x="0" y="8" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="21" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">
+      YOUR PHOTO HERE
+    </text>
+
+    <!-- Subtitle Devanagari & English -->
+    <text x="0" y="34" font-family="'Noto Serif Devanagari', 'Cormorant Garamond', Georgia, serif" font-size="15" font-weight="600" fill="#E6C665" text-anchor="middle" letter-spacing="1">
+      पंडित जी की फोटो यहाँ लगेगी
+    </text>
+
+    <text x="0" y="58" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#A39A8B" text-anchor="middle" letter-spacing="0.5">
+      Drop your real photo or portrait here anytime
+    </text>
+  </g>
+
+  <!-- Corner Filigree Ornaments -->
   <g stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.6">
     <path d="M40 80 H95 M40 80 V135"/>
     <path d="M760 80 H705 M760 80 V135"/>
